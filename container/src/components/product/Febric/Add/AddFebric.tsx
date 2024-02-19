@@ -160,7 +160,7 @@ export default function AddFebric({ }: Props) {
 
     
 
-    const [step, setStep] = useState<formStepType>(formStepEnum.four);
+    const [step, setStep] = useState<formStepType>(formStepEnum.one);
     const [errors, setErrors] = useState<any>({ compositions: null });
     const [febric, setFebric] = useState<any>(updateFebric.length > 0 ? updateFebric[0] :febricInitalState);
     const [moveToNextStep, setMoveToNextStep] = useState(false);
@@ -173,8 +173,6 @@ export default function AddFebric({ }: Props) {
     const [compositions, setComposition] = useState<CompositionInterface[]>(updateFebric.length > 0 ? updateFebric[0].compositions :[]);
 
     const [availableComposition, setAvailableComposition] = useState<CompositionInterface[]>(febricTypes);
-    // const [selectedCharacters, setSelectedCharacters] = useState<string[]>([]);
-    // const [compositionError, setCompositionError] = useState<null | string>(null)
 
     const [counter, setCounter] = useState(0);
     const history = useHistory();
@@ -210,9 +208,6 @@ export default function AddFebric({ }: Props) {
     }, [moveToNextStep, step, errors]);
 
     const nextStepAfterMediaUpload = async () => {
-        
-        // Lets validate that image has been set
-        // If image is not full and there is no error
      
         if(updateFebric.length > 0 && !febricImage && !febricImageError) {
             setStep(formStepEnum.five);
@@ -263,36 +258,9 @@ export default function AddFebric({ }: Props) {
         event: ChangeEvent<HTMLInputElement>
     ) => {
         handleMediaChange(event, setFebricImageError, setFebricImage)
-        // setFebricImageError(null);
-        // const file = event.target.files && event.target.files[0];
-
-        // const allowedTypes = ['image/jpeg', 'image/png', , 'image/webp']; // Add more allowed types if needed
-        // const maxFileSizeKB = 1024 * 1024 * 3; // Maximum allowed file size in kilobytes (1MB * 3)
-
-        // if (!file) {
-        //     setFebricImageError('Please select a file');
-        //     return;
-        // }
-
-        // if (file.size > maxFileSizeKB) {
-        //     setFebricImageError(`File size exceeds, Only ${maxFileSizeKB / 1024} MB allowed`);
-        //     return;
-        // }
-
-        // if (!allowedTypes.includes(file.type)) {
-        //     setFebricImageError(`Invalid image type, only jpeg, png, gif, webp extension is allwoed`);
-        //     return;
-        // }
-
-        // // Validate before setting to state 
-
-        // if (file) {
-        //     setFebricImage(file);
-        //     setFebricImageError(null);
-        // }
     };
 
-    console.log("febricImage", febricImage)
+
 
     const compositionNextStepHandler = useCallback(() => {
         setErrors({});
@@ -300,8 +268,6 @@ export default function AddFebric({ }: Props) {
             setErrors({ ...errors, compositions: 'Please select compositions' });
             return;
         }
-
-
 
         const sumCombinations = compositions.reduce((accomulator, current) => accomulator + (Number(current?.persantage) ?? 0), 0);
         if (sumCombinations < 100) {
@@ -329,7 +295,6 @@ export default function AddFebric({ }: Props) {
     }
 
     const submitFebricToServerHandler = async () => {
-        // Submit the form to server
         try {
                 const {id} = updateFebric[0] || {};
                 await request({

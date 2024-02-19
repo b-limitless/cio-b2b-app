@@ -2,7 +2,7 @@
 @import "@pasal/common-style/styles/abstract/variables.scss";
 
 .addfebric__container {
-  width: calc(100vw - $sidebar-width);
+  width: calc(100vw - 292px);
   height: calc(100vh - 1rem);
   display: flex;
   justify-content: center;
