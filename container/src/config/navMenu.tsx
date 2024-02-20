@@ -44,11 +44,11 @@ export const sideNavConfig = [
         children: [{ title: "Febric", component: "" }]
         // { title: "Shirts", component: "" }, { title: "Pants", component: "" }
     },
-    // {
-    //     title: "Orders", icon: menuIcons.pricing,
-    //     children: []
-    //     // children: [{ title: "Pricing one" }, { title: "Pricing Two" }]
-    // },
+    {
+        title: "Orders", icon: menuIcons.pricing,
+        children: []
+        
+    },
     // {
     //     title: "Users", icon: menuIcons.users,
     //     children: []

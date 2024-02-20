@@ -1,11 +1,14 @@
 import { DataTable, camelCaseToNormal } from "@pasal/cio-component-library";
 import React, { useState } from "react";
 import orderMockData from "../../../../mock/order.json";
-import { OrderStatus } from "../../../../types&Enums/status.type";
-
+import { OrderStatus } from "./status.type";
+import { SelectChangeEvent } from '@mui/material/Select';
 import { paymentStatus } from "../../../../types&Enums/payment.status.type";
 import OrderSideModel from "../../SideModel";
 import styles from "./list.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../store";
+import { filterOrders } from "../../../../../reducers/orderSlice";
 
 type Props = {}
 
@@ -25,10 +28,12 @@ export default function ListOrder({ }: Props) {
     },
   ];
   const count = 8;
+  const {filters} = useSelector((state:RootState) => state.orders)
 
   const [showModel, setShowModel] = useState<boolean>(false);
-  const [filters, setFilters] = React.useState<any>({ orderStatus: [], paymentStatus: [] });
+  // const [filters, setFilters] = React.useState<any>({ orderStatus: [], paymentStatus: [] });
   const [page, setPage] = useState<number>(1);
+  const dispatch = useDispatch();
  
   const tableHeader = ["orderId", "customerId", "orderData", "price", "orderStatus", "paymentStatus", "action"];
 
@@ -36,6 +41,19 @@ export default function ListOrder({ }: Props) {
   // normalizeDataForVisual(orderMockData, "paymentStatus", colorsForPaymentStatus);
 
  
+  const handleChange = (event: SelectChangeEvent<typeof filters>, name: string) => {
+
+    // if (!setFilters) return;
+
+    const {
+      target: { value },
+    } = event;
+
+    const newFiltersState = { ...filters, [name]: typeof value === 'string' ? value.split(',') : value };
+
+    dispatch(filterOrders(newFiltersState));
+
+  };
   
   return (
     <>
@@ -51,18 +69,18 @@ export default function ListOrder({ }: Props) {
           showFebricModels={false}
           detailsComponents={null}
           showDetailReactNode={"Edit"}
-          tableTitle={"Order"}
+          tableTitle={"Orders"}
           showToLeftButton={null}
           setShowSelectRowId={() => { }}
           filterData={filterData}
           filters={filters} 
-          setFilters={setFilters}
+          // setFilters={setFilters}
           paginate={true}
           page={page}
           setPage={setPage}
           count={count}
           loading={false}
-          handleFiltersOnChange={() => {}}
+          handleFiltersOnChange={handleChange}
         />
       </div>
       {/* <Button text="sdf" variant="primary"/> */}

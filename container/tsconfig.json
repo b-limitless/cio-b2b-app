@@ -26,7 +26,7 @@
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
     // "baseUrl": "./src",
     /* Strict Type-Checking Options */
-    // "baseUrl": "../src",
+    
     // "paths": {
     //   "components/*": ["components/*"],
     //   "types&Enums/*": ["types&Enums/*"]
@@ -70,7 +70,12 @@
 
     /* Advanced Options */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "*": ["*"]
+    // }
   },
   // "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "custom.d.ts", "src/**/*.png", "src/**/*.svg", "src/**/*.scss"]
+ 
 }
