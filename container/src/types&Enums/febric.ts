@@ -11,8 +11,6 @@ export enum formStepEnum {
 
 export type formStepType = formStepEnum;
 
-
-// export type forStepType = `${formStepEnum}`;
 export type forStepType = keyof typeof formStepEnum;
 
 export const formStepArray = Object.values(formStepEnum);

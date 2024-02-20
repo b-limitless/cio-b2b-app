@@ -1,12 +1,11 @@
 import { createBrowserHistory } from "history";
-import React, { ReactNode, Suspense, lazy, useState } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Router, Switch } from "react-router-dom";
 import { authenticatedUser } from "../reducers/authSlice";
 import Container from "./components/common/Container";
 import Dashboard from "./components/dashboard/Dashboard/Dashboard";
 import AddFebric from "./components/product/Febric/Add";
-import Febric from "./components/product/Febric/Febric";
 import Thread from "./components/product/Thread/Thread";
 import AuthApp from "./components/remotes/AuthApp";
 

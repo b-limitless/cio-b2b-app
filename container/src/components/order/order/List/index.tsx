@@ -7,7 +7,6 @@ import { paymentStatus } from "../../../../types&Enums/payment.status.type";
 import OrderSideModel from "../../SideModel";
 import styles from "./list.module.scss";
 
-// import { colorsForPaymentStatus, colorsForTableFields, normalizeDataForVisual } from "./normolizeData";
 type Props = {}
 
 
