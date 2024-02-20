@@ -1,4 +1,4 @@
-import { Message, request } from '@pasal/cio-component-library';
+import { Message } from '@pasal/cio-component-library';
 import { firstLetterUpperCase } from '@pasal/common-functions';
 import axios from 'axios';
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
@@ -20,6 +20,7 @@ import StepThree from './Steps/Three';
 import StepTwo from './Steps/Two';
 import { CompositionInterface } from './Steps/steps.interface';
 import { handleMediaChange } from '../../../../functions/handleMediaChange';
+import { request } from '../../../../utils/request';
 
 
 type Props = {}
@@ -158,7 +159,7 @@ export default function AddFebric({ }: Props) {
     // If update is not null then filter the febric from the store and get it
     const updateFebric = febrics.filter((febric) => febric?.id === update);
 
-    
+  
 
     const [step, setStep] = useState<formStepType>(formStepEnum.one);
     const [errors, setErrors] = useState<any>({ compositions: null });
@@ -174,7 +175,6 @@ export default function AddFebric({ }: Props) {
 
     const [availableComposition, setAvailableComposition] = useState<CompositionInterface[]>(febricTypes);
 
-    const [counter, setCounter] = useState(0);
     const history = useHistory();
     const dispatch = useDispatch();
 

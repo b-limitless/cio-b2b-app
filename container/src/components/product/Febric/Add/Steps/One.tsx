@@ -71,7 +71,7 @@ export default function StepOne({ onChangeHandler, febric, errors, setErrors }: 
                 <Input
                     label="Price"
                     id="price"
-                    defaultValue=""
+                    defaultValue={febric.price ?? 0}
                     type="number"
                     name="price"
                     onChange={onChangeHandler}

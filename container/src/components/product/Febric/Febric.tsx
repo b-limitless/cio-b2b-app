@@ -1,39 +1,20 @@
-import { Button, DataTable, camelCaseToNormal, request, svgCDNAssets } from '@pasal/cio-component-library';
+import { SelectChangeEvent } from '@mui/material/Select';
+import { Button, DataTable, request, svgCDNAssets } from '@pasal/cio-component-library';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { affectedRowAction, fetchFebrics, fetchingFebrics, filterFebric, updateFebric } from '../../../../reducers/productSlice';
 import { APIS } from '../../../config/apis';
+import { brightness, febricSeasons } from '../../../config/febric';
 import { ProductInterface } from '../../../interfaces/febric.interface';
 import { RootState } from '../../../store';
 import ConfirmationDialog from '../../common/Confimation/ConfirmationDialog';
 import FebricDetailsModel from './FebricDetailsModel';
 import FebricImageModel from './FebricImageModel';
 import styles from './styles.module.scss';
-import { OrderStatus } from './types/febrics';
-import { brightness, type } from '../../../config/febric';
-import { getObjectToArray } from '../../../config/febric';
-import { febricSeasons } from '../../../config/febric';
-import { firstLetterUpperCase } from '../../../functions/firstLetterUpperCase';
-import { paginateFebric } from '../../../../reducers/productSlice';
-import { SelectChangeEvent } from '@mui/material/Select';
 
 
 const perPage = 20;
-
-
-
-
-
-// type Props = {}
-//{}: Props
-// We can show the table list of febric with some most important details 
-// When they click to we can show exactly the way we are showing to from side
-// Show the product details popup with the image with popup
-// Before you start working with edit you need  to work with add febric
-
-// Some basic details which you can show in the table is
-// 5 items you need check choose title, category, price , material, season
 
 const filterData = [
   {
@@ -54,14 +35,11 @@ interface FebricInterface {
   actions: any;
   globalDispatch: any
 }
-//product, actions, globalDispatch
+
 export default function Febric() {
-  // Loading the febrics for the  users
   const customStyle = {
     cursor: 'pointer'
   }
-
-  // const {febrics, loading} = product;
 
   const tableHeader = ['title', 'type', 'price', 'febricSeasons', 'action'];
 
@@ -69,8 +47,6 @@ export default function Febric() {
   const dispatch = useDispatch();
 
 
-
-  const [showFebricDetailsModel, setShowFebricDetailsModel] = useState<number>(-1);
   const [showModel, setShowModel] = useState<number>(-1);
   
   const [page, setPage] = useState<number>(0);
@@ -84,6 +60,7 @@ export default function Febric() {
   }
 
   const editFebricHandler = (febric: string) => {
+    console.log('febric', febric);
     dispatch(updateFebric(febric));
     // history.push('/products/febric/add');
   }
@@ -190,7 +167,7 @@ export default function Febric() {
         // showFebricModels={showModel}
         detailsComponents={null}
         showDetailReactNode={<img src={svgCDNAssets.eye} />}
-        tableTitle={'Febric'}
+        tableTitle={'Febrics'}
         showToLeftButton={{ url: '/products/febric/add', label: 'Add Febric' }}
         setShowSelectRowId={undefined}
         filterData={filterData}

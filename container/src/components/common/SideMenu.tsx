@@ -8,12 +8,11 @@ import LogoutIcon from "../../assets/svg/logout.svg";
 import rightArrowRound from "../../assets/svg/right-arrow-round.svg";
 import Setting from "../../assets/svg/settings.svg";
 import SwitchPro from "../../assets/svg/switch-pro.svg";
-
 import { sideNavConfig } from '../../config/navMenu';
 import NavList from './NavList';
-import { request } from '@pasal/cio-component-library';
 import { APIS } from '../../apis';
 import { useHistory } from 'react-router-dom';
+import { request } from '../../utils/request';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -53,7 +52,8 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
      try {
       await request({
         url: APIS.auth.signout,
-        method: 'get'
+        method: 'post', 
+        
       });
       globalDispatch(actions.authenticatedUser(null));
       history.push('/auth/signin');
