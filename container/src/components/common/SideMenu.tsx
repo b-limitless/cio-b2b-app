@@ -86,8 +86,8 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
           </div>
         </div>
         <div className="bottom">
-          {/* <div className="bottom--top">
-            <div className="row switch--account">
+          <div className="bottom--top">
+            {/* <div className="row switch--account">
               <div className="col icon">
                 <SwitchPro/>
               </div>
@@ -102,7 +102,7 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="row item" onClick={() => sideModelToggleHandler(sidebarNavClick.settings)}>
               <input type="radio"
                 name="bottom-checkbox"
@@ -116,7 +116,7 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
               </label>
               <div className="text settings title">Settings</div>
             </div>
-            <div className="row item">
+            {/* <div className="row item">
               <input type="radio"
                 name="bottom-checkbox"
                 id="faq-checkbox"
@@ -128,10 +128,10 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
                 </div>
               </label>
               <div className="text settings">FAQ</div>
-            </div>
+            </div> */}
 
             
-          </div> */}
+          </div>
           <div className="bottom--bottom" onClick={() => sideModelToggleHandler(sidebarNavClick.profile)}>
             <input type="checkbox" id="avatar-profile-info" className="avatar-profile-info" />
             <label htmlFor="avatar-profile-info" >

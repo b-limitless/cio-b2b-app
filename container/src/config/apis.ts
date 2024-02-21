@@ -16,3 +16,5 @@ export const APIS = {
     users: `${userBaseURI}/v1`,
   },
 };
+
+export const frontStoreLink = 'http://localhost:3000'

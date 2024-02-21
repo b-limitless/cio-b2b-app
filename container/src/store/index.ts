@@ -9,7 +9,7 @@ export const Store = configureStore({
         auth, 
         product, 
         users,
-        orders
+        orders,
     }
 });
 

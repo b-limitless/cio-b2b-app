@@ -21,16 +21,15 @@ export default function useSetAuthenticatedUser({ setLoading }: AuthenticatedUse
                 });
                 dispatch(authenticatedUser(currentUser));
                 
-
             } catch (err) {
                 console.error('Count not fetch current user', err);
             }
             setLoading(false);
 
         }
-        // if (auth) {
-        //     setLoading(false);
-        // }
+        if (auth) {
+            setLoading(false);
+        }
         if (!auth) {
             setLoading(true);
             fetchCurrentUser();

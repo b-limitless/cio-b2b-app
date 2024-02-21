@@ -5,6 +5,8 @@ import SideMenu from "./SideMenu";
 // import './loader.scss';
 
 import useSetAuthenticatedUser from "../../../hooks/useSetAuthenticatedUser";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 interface ContainerInterface {
     setSelectedMenu: Function,
     selectedMenu: menuIds,
@@ -17,7 +19,7 @@ interface ContainerInterface {
 
 export default function Container({ setShowSettingModel, showSettingModel, children, setSelectedMenu, selectedMenu, setShowProfileSideModel, actions, globalDispatch }: ContainerInterface) {
     const [loading, setLoading] = useState(false);
-
+    const { auth: { auth } } = useSelector((state: RootState) => state);
 
     useSetAuthenticatedUser({setLoading});
 
@@ -27,7 +29,7 @@ export default function Container({ setShowSettingModel, showSettingModel, child
         </div>
     } 
 
-    if(!loading) {
+    if(auth && !loading) {
         return (
             <>
                 <input type="radio" id="toggle-menu-checkbox" className="toggle-menu-checbox" name="toggle-menu-checkbox" />

@@ -4,6 +4,10 @@ import PositiveGrowth from "../../../assets/svg/positive-growth.svg";
 import AnalyticCard from "../common/AnalyticCard";
 import Profile from "../Profile";
 import Seetings from "../Settings/Setting";
+import { frontStoreLink } from "../../../config/apis";
+import './dashboard.scss';
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 
 type Props = {
@@ -50,10 +54,11 @@ export const analyticsData = [
 
 
 export default function Dashboard({setShowSettingModel, showSettingModel, showProfileSideModel, setShowProfileSideModel}: Props) {
-  
+  const {auth} = useSelector((state: RootState) => state.auth);
+
+ 
   return (
     <>
-  
 
      <Seetings showModel ={showSettingModel} setShowModel = {setShowSettingModel}/>
       <Profile showModel={showProfileSideModel} setShowModel={setShowProfileSideModel}/>
@@ -74,7 +79,7 @@ export default function Dashboard({setShowSettingModel, showSettingModel, showPr
           />)}
         </div>
         <div className="ci--dashboard__graphs">
-          Show your graphs here
+          Store Link: {`${frontStoreLink}/${auth?.id}`}
         </div>
 
       </div>
