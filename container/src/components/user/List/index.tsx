@@ -10,11 +10,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { APIS } from '../../../config/apis';
-import { request } from '@pasal/cio-component-library';
 import { affectedRowAction, fetchUsers, fetchedError, fetchingUsers, updateUser, addUser, addedUserAction } from '../../../../reducers/userSlice';
 import { userType } from '../../../../reducers/userSlice';
 import { useHistory } from 'react-router-dom';
 import ConfirmationDialog from '../../common/Confimation/ConfirmationDialog';
+import { request } from '../../../utils/request';
 type Props = {}
 
 let tableData: any = [

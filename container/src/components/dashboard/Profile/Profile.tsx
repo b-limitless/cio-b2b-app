@@ -1,4 +1,4 @@
-import { Button, Input, InputAdornments, MultipleSelect, Select, TextArea, request } from '@pasal/cio-component-library';
+import { Button, Input, InputAdornments, MultipleSelect, Select, TextArea } from '@pasal/cio-component-library';
 import axios from 'axios';
 import React, { ChangeEvent, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ import styles from './profile.module.scss';
 import { passwordRegex } from '@pasal/cio-component-library';
 import { hasError } from '../../../functions/hasError';
 import { useMemo } from 'react';
+import { request } from '../../../utils/request';
 
 type Props = {
   showModel: boolean;
@@ -206,7 +207,7 @@ export default function Profile({ showModel, setShowModel }: Props) {
       return;
     }
     dispatch({ type: UPDATING_PROFILE, payload: true });
-    const { id, verified, email, withCredentials, ...body } = userDetails;
+    const { id, verified, email, withCredentials, permissions, ...body } = userDetails;
 
     try {
       await request({

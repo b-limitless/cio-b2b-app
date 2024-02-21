@@ -1,5 +1,6 @@
 import { SelectChangeEvent } from '@mui/material/Select';
-import { Button, DataTable, request, svgCDNAssets } from '@pasal/cio-component-library';
+import { Button, DataTable, svgCDNAssets } from '@pasal/cio-component-library';
+import { request } from '../../../utils/request';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';

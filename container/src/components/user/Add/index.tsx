@@ -1,4 +1,4 @@
-import { forStepType, formStepEnum, request } from '@pasal/cio-component-library';
+import { forStepType, formStepEnum } from '@pasal/cio-component-library';
 import { emailRegex, firstLetterUpperCase, validString } from '@pasal/common-functions';
 import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import FormTemplate from '../../common/FormTemplate/FormTemplate';
@@ -15,7 +15,7 @@ import { RootState } from '../../../store';
 import { addUser, addedUserAction, fetchUsers, updateUser as updateUserAction, userType } from '../../../../reducers/userSlice';
 import { Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import { request } from '../../../utils/request';
 
 
 
