@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@pasal/cio-component-library": "^95.0.0"
+  }
+}

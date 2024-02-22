@@ -4,7 +4,7 @@ export const REQUEST_BASE_URI = `${BASE_URI}/${API_PRIFIX}`;
 
 export const productBaseURI = `${REQUEST_BASE_URI}/products`;
 export const userBaseURI = `${REQUEST_BASE_URI}/users`;
-
+export const paypal = `${REQUEST_BASE_URI}/paypal`;
 export const APIS = {
   product: {
     upload: `${productBaseURI}/v1/upload`,
@@ -15,6 +15,9 @@ export const APIS = {
     teams: `${userBaseURI}/team/v1`,
     users: `${userBaseURI}/v1`,
   },
+  paypal: {
+    
+  }
 };
 
 export const frontStoreLink = 'http://localhost:3000'

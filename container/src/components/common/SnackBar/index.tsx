@@ -40,6 +40,7 @@ export default function TransitionsSnackbar({ severity, message, open, handleClo
                 onClose={handleCloseAlert}
                 TransitionComponent={state.Transition}
                 key={state.Transition.name}
+                sx={{zIndex: 10000}}
             >
                 <Alert onClose={handleCloseAlert}
                     severity={severity}
