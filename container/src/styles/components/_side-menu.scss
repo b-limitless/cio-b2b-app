@@ -117,8 +117,17 @@
             }
           }
           .title-icon {
+            
             display: flex;
             align-items: center;
+
+            .icon {
+              display: flex;
+            }
+            a {
+              display: flex;
+              align-items: center;
+            }
             .arrow {
               transform: rotate(-90deg) !important;
               transition: all 0.25s ease;
@@ -140,13 +149,26 @@
       display: flex;
       flex-direction: column;
       row-gap: 4rem;
+      
+      label {
+        .icon {
+          display: flex;
+        }
+      }
+      
       &--top {
+        
+
         display: flex;
         flex-direction: column;
         row-gap: 1rem;
+        
         .bottom-checkbox {
           display: none;
         }
+
+      
+        
         .switch--account {
           display: flex;
           column-gap: 0.5rem;
@@ -190,6 +212,8 @@
           display: flex;
           column-gap: pxToRem(18.21);
           position: relative;
+          align-items: center;
+          
           .text {
             color: gray;
             font-style: normal;
@@ -292,14 +316,6 @@
 
 .avatar {
   @include round-image-profile('50px', '50px');
-  // width: 50px; /* Adjust the size as needed */
-  // height: 50px;
-  // overflow: hidden;
-  // border-radius: 50%;
-  // border: 2px solid #fff; /* Optional: Add a border if desired */
-  // img {
-  //   width: 100%; /* Ensure the image takes up the container's width */
-  //   height: auto; /* Maintain the aspect ratio */
-  //   display: block; /* Remove any potential extra spacing */
-  // }
+
 }
+
