@@ -22,43 +22,34 @@ const commonConfig = {
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
-        ],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(woff2?|jpe?g|png|gif|ico)$/, 
-        oneOf: [
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+        issuer: /\.[jt]sx?$/,
+      },
+      {
+        test: /\.(woff2?|jpe?g|png|gif|ico)$/,
+        exclude: path.resolve(__dirname, "../node_modules/"),
+        use: [
           {
-            exclude: path.resolve(__dirname, "../node_modules/"),
-            use: "svg-inline-loader",
-          },
-          {
-            exclude: path.resolve(__dirname, "../node_modules/"),
-            use: "url-loader",
+            loader: "url-loader",
+            options: {
+              limit: 8192, // Convert images < 8kb to base64 strings
+              name: "[name].[ext]",
+            },
           },
         ],
       },
-      {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack'],
-      },
-      
     ],
   },
   resolve: {
-     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-   
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: [
       ".js",
       ".jsx",

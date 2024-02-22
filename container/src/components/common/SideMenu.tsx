@@ -13,6 +13,8 @@ import NavList from './NavList';
 import { APIS } from '../../apis';
 import { useHistory } from 'react-router-dom';
 import { request } from '../../utils/request';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -32,7 +34,8 @@ type sidebarNavClicktype = `${sidebarNavClick}`
 
 export default function SideMenu({setShowSettingModel, showSettingModel, setSelectedMenu, setShowProfileSideModel, globalDispatch, actions }: SideMenuInterface) {
   
-  
+  const {auth} = useSelector((state:RootState) => state.auth);
+
   const history = useHistory();
   const sideModelToggleHandler = (type:sidebarNavClicktype) => {
     if(type==sidebarNavClick.profile) {
@@ -141,8 +144,8 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
             </label>
             <div className="profile-logout">
               <div className="col name--role">
-                <div className="name">Bharat Shah</div>
-                <div className="role">Administrator</div>
+                <div className="name">{`${auth?.firstName ?? 'User'} ${auth?.lastName ?? ''}`}</div>
+                <div className="role">{`${auth?.role ?? 'Guest'}`}</div>
               </div>
               <div className="col logout" onClick={() => singOutHandler()}>
                 <LogoutIcon/>
