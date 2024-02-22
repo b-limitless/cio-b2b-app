@@ -139,7 +139,7 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
             <input type="checkbox" id="avatar-profile-info" className="avatar-profile-info" />
             <label htmlFor="avatar-profile-info" >
               <div className="col avatar">
-                <img src={avatar} />
+                <img src={auth?.originalImageUrl ??  avatar} />
               </div>
             </label>
             <div className="profile-logout">

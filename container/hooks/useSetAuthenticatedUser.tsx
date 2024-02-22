@@ -1,4 +1,4 @@
-import { request } from '@pasal/cio-component-library';
+import { request } from '../src/utils/request';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticatedUser } from '../reducers/authSlice';
@@ -27,9 +27,9 @@ export default function useSetAuthenticatedUser({ setLoading }: AuthenticatedUse
             setLoading(false);
 
         }
-        if (auth) {
-            setLoading(false);
-        }
+        // if (auth) {
+        //     setLoading(false);
+        // }
         if (!auth) {
             setLoading(true);
             fetchCurrentUser();

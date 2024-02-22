@@ -1,3 +1,4 @@
+
 .left {
   z-index: 10;
 }
@@ -7,7 +8,7 @@
   position: fixed;
   width: pxToRem($left-menu-width);
   z-index: 10;
- 
+
   @media only screen and (max-width: $bp-largest) and (min-width: $bp-medium) {
     width: pxToRem(92);
   }
@@ -47,7 +48,7 @@
             padding: 0.5rem 0;
             overflow: hidden;
             a {
-              cursor: pointer ;
+              cursor: pointer;
             }
             @media only screen and (max-width: $bp-largest) and (min-width: $bp-medium) {
               position: relative;
@@ -96,7 +97,7 @@
             .major-list {
               display: none;
             }
-            .major-list:checked + .title-icon  svg {
+            .major-list:checked + .title-icon svg {
               opacity: 1;
             }
             .major-list:checked ~ .sub--ul {
@@ -267,6 +268,7 @@
       .profile-logout {
         display: none !important;
       }
+
       .avatar-profile-info:checked ~ .profile-logout {
         display: flex !important;
         position: absolute;
@@ -285,5 +287,19 @@
   }
 }
 .side--navbar:has(.left-arrow-checkbox:checked) {
-  left: -(pxToRem($left-menu-width)) ;
+  left: -(pxToRem($left-menu-width));
+}
+
+.avatar {
+  @include round-image-profile('50px', '50px');
+  // width: 50px; /* Adjust the size as needed */
+  // height: 50px;
+  // overflow: hidden;
+  // border-radius: 50%;
+  // border: 2px solid #fff; /* Optional: Add a border if desired */
+  // img {
+  //   width: 100%; /* Ensure the image takes up the container's width */
+  //   height: auto; /* Maintain the aspect ratio */
+  //   display: block; /* Remove any potential extra spacing */
+  // }
 }

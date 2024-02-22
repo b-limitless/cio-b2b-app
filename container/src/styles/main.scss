@@ -1,8 +1,12 @@
+
 @import "abstract/variables";
 @import "base/functions";
+
 @import "base/base";
+@import "mixin/profile-picture.scss";
 @import "components/container";
 @import "components/left-side-menu";
 @import "components/side-menu";
 @import "components/dashboard";
+
 

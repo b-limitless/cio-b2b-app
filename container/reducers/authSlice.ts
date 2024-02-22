@@ -1,17 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export const verifyResponse = {
-  permissions: ["all"],
+  permissions: [{}],
   verified: true,
-  firstName: null,
-  lastName: null,
-  country: null,
-  spokenLanguage: [],
-  about: null,
+  firstName: 'Bharat',
+  lastName: 'Shah',
+  country: 'AU',
+  spokenLanguage: [
+    'Hindi',
+    'Italian'
+  ],
+  about: 'Bharat this is ',
   profileImageLink: null,
-  email: "bharatrose2@gmail.com",
-  role: "admin",
-  id: "651d3de1669cbc001892f2e6",
+  originalImageUrl: 'https://res.cloudinary.com/dun5p8e5d/image/upload/v1708522799/images/ABC/ufda2h2lfcutbfrfxuv0.jpg',
+  thumbnailImageUrl: 'https://res.cloudinary.com/dun5p8e5d/image/upload/v1708522802/thumbnails/ABC/wfapet6mxt1phqw0ugqo.jpg',
+  email: 'bharatrose1@gmail.com',
+  role: 'admin',
+  id: '65d3277dd1365d5ecd4882e9'
 };
 
 export type verifyType = typeof verifyResponse;

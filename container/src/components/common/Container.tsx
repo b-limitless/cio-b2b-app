@@ -29,6 +29,10 @@ export default function Container({ setShowSettingModel, showSettingModel, child
         </div>
     } 
 
+    if(!auth && !loading) {
+        return <div>Auth Error</div>
+    }
+
     if(auth && !loading) {
         return (
             <>
