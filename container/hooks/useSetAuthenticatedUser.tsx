@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authenticatedUser } from '../reducers/authSlice';
 import { APIS } from '../src/apis';
 import { RootState } from '../src/store';
+import { useHistory } from 'react-router-dom';
 
 interface AuthenticatedUserInterface {
     setLoading: Function;
@@ -12,6 +13,7 @@ export default function useSetAuthenticatedUser({ setLoading }: AuthenticatedUse
 
     const { auth: { auth } } = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
+    const history = useHistory();
     useEffect(() => {
         const fetchCurrentUser = async () => {
             try {
@@ -22,6 +24,7 @@ export default function useSetAuthenticatedUser({ setLoading }: AuthenticatedUse
                 dispatch(authenticatedUser(currentUser));
                 
             } catch (err) {
+                return history.push('/auth/signin');
                 console.error('Count not fetch current user', err);
             }
             setLoading(false);

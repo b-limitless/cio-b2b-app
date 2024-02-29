@@ -1,3 +1,9 @@
+/**
+ * Remember to update model febricSeason to directly season otherwise it would not work
+ * remove the validation from the server side as well for febricSeason because in the backend
+ * model as been renamed from febricSeason to season
+ * 
+*/
 import { Message } from '@pasal/cio-component-library';
 import { firstLetterUpperCase } from '@pasal/common-functions';
 import axios from 'axios';
