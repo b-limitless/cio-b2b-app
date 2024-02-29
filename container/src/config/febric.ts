@@ -267,3 +267,31 @@ export const type = [{code: 'shirt', name: 'Shirt'}, {code: 'pant', name: 'Pant'
 export const getObjectToArray = (data:any) => {
   return data.map((d:any)=> d.code);
 }
+
+// New attributes which is added
+export const fabricPatterns= [
+  { code: 'solid', name: 'Solid', description: 'A fabric with a uniform color throughout, without additional designs or patterns.' },
+  { code: 'stripe', name: 'Stripe', description: 'Features straight lines or bands of contrasting colors running parallel to each other on the fabric.' },
+  { code: 'checkered', name: 'Checkered/Plaid', description: 'Consists of small, even-sized squares or rectangles arranged in a grid pattern.' },
+  { code: 'floral', name: 'Floral', description: 'Incorporates designs inspired by flowers and plants, ranging from small to large blooms.' },
+  { code: 'geometric', name: 'Geometric', description: 'Involves shapes such as circles, squares, triangles, or other geometric forms in repetitive patterns.' },
+  { code: 'polkaDot', name: 'Polka Dot', description: 'Features small, round dots arranged in a regular or irregular pattern on the fabric.' },
+  { code: 'herringbone', name: 'Herringbone', description: 'Consists of rows of V-shaped or zigzagging lines, creating a distinctive and sophisticated look.' },
+  { code: 'houndstooth', name: 'Houndstooth', description: 'A two-tone pattern characterized by broken checks or abstract four-pointed shapes.' }
+];
+
+
+export const weaveTypes = [
+  { code: 'plain', name: 'Plain Weave', description: 'The most basic and common weave, featuring a simple over-and-under pattern of interlacing threads.' },
+  { code: 'twill', name: 'Twill Weave', description: 'Characterized by a diagonal pattern created by the interlacing of threads. It produces a sturdy and durable fabric.' },
+  { code: 'satin', name: 'Satin Weave', description: 'Known for its smooth and glossy surface, achieved by floating threads over a number of yarns before interlacing. Often used for luxurious fabrics.' },
+  { code: 'basket', name: 'Basket Weave', description: 'Created by grouping threads together and interlacing them in pairs. It results in a checkerboard-like pattern with a textured appearance.' },
+  { code: 'herringbone', name: 'Herringbone Weave', description: 'Similar to a twill weave but with a distinctive V-shaped pattern, resembling the bones of a herring fish.' },
+  { code: 'jacquard', name: 'Jacquard Weave', description: 'A complex weave that allows for intricate patterns and designs to be woven into the fabric using a Jacquard loom.' },
+  { code: 'duck', name: 'Duck Weave', description: 'A strong, plain-weave fabric often used for sturdy, heavy-duty materials like canvas.' },
+  { code: 'sateen', name: 'Sateen Weave', description: 'Similar to satin but with a smoother and softer feel. It has a lustrous surface and is commonly used for bedding and apparel.' },
+  { code: 'knitted', name: 'Knitted Fabric', description: 'Created by interlocking loops of yarn, resulting in a flexible and stretchable fabric often used in garments like sweaters and T-shirts.' },
+  { code: 'sharkskin', name: 'Sharkskin Weave', description: 'Known for its smooth and slightly shiny appearance, sharkskin is a type of twill weave with a fine diagonal pattern.' },
+  { code: 'seersucker', name: 'Seersucker Weave', description: 'A puckered cotton fabric with a crinkled surface, usually striped or checkered. It is lightweight and breathable, making it suitable for warm weather.' },
+  // Add more weave types with descriptions as needed
+];
