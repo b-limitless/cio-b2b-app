@@ -1,28 +1,41 @@
 import React, { useEffect, useState } from 'react'
 
-export default function OrderReceiveNotification() {
- const [eventData, setEventData] = useState('');
+export default function useOrderReceiveNotification() {
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:8000/api/cart/sse');
+    let sse:EventSource;
+    const connectToSSE = () => {
+      sse = new EventSource('http://localhost:8000/api/cart/sse', { withCredentials: true });
 
-    eventSource.onmessage = (event) => {
-        // const data = JSON.parse(event.data);
-        console.log(JSON.parse(event.data));
-    }
+      function getRealtimeData(data: any) {
+        console.log('Data', data);
+        // Handle the received data
+      }
 
-    eventSource.onerror = (error) => {
-        console.error('EventSource failed:', error);
-        eventSource.close();
+      sse.onopen = () => {
+        console.log(">>> Connection opened!");
       };
 
-      return () => {
-        eventSource.close();
-      }
-  }, [])
-  return (
-    <div>
-      <h1>Server Sent Events Example</h1>
-      <p>{eventData}</p>
-    </div>
-  );
+      sse.onmessage = (e) => {
+        getRealtimeData(JSON.parse(e.data));
+      };
+
+      sse.onerror = (error) => {
+        console.log('Could not connect to SSE', error);
+        sse.close();
+
+        // Retry connection after a delay (e.g., 5 seconds)
+        setTimeout(connectToSSE, 5000);
+      };
+    };
+
+    // Initial connection
+    connectToSSE();
+
+    // Clean up on component unmount
+    return () => {
+      // Close the SSE connection on component unmount
+      // This will also stop reconnection attempts
+      sse.close();
+    };
+  }, []);
 }

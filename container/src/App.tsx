@@ -1,5 +1,5 @@
 import { createBrowserHistory } from "history";
-import React, { Suspense, lazy, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Router, Switch } from "react-router-dom";
 import { authenticatedUser } from "../reducers/authSlice";
@@ -15,6 +15,7 @@ const ListOrderLazyLoad = lazy(() => import("./components/order/order/List"));
 
 import { menuIds } from "./config/navMenu";
 import "./styles/main.scss";
+import useOderReceiveNotification from "./components/common/EventSource/Order";
 const LazyFebric = lazy(() => import("./components/product/Febric/Febric"));
 type Props = {}
 const history = createBrowserHistory();
@@ -23,11 +24,36 @@ export default function App({ }: Props) {
   const [showProfileSideModel, setShowProfileSideModel] = useState<boolean>(false);
   const [showSettingModel, setShowSettingModel] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const [data, setData] = useState();
+  // const eventSource = new EventSource('http://localhost:8000/api/cart/sse');
+  // useEffect(() => {
+
+  //   const sse = new EventSource('http://localhost:8000/api/cart/sse',
+  //     { withCredentials: true });
+  //   function getRealtimeData(data: any) {
+  //     // process the data here,
+  //     // then pass it to state to be rendered
+  //     setData(data);
+  //   }
+  //   sse.onopen = () => console.log(">>> Connection opened!");
+  //   sse.onmessage = e => getRealtimeData(JSON.parse(e.data));
+  //   sse.onerror = () => {
+  //     // error log here 
+
+  //     sse.close();
+  //   }
+  //   return () => {
+  //     sse.close();
+  //   };
+  // }, []);
+
+  useOderReceiveNotification();
+
   return (
     <>
       <Router history={history}>
         <Switch>
-         <Route path="/auth">
+          <Route path="/auth">
             <AuthApp
               actions={{ authenticatedUser }}
               globalDispatch={dispatch}
@@ -38,23 +64,23 @@ export default function App({ }: Props) {
             setShowProfileSideModel={setShowProfileSideModel}
             showSettingModel={showSettingModel}
             selectedMenu={selectedMenu}
-            setSelectedMenu={setSelectedMenu} 
+            setSelectedMenu={setSelectedMenu}
             actions={{ authenticatedUser }}
             globalDispatch={dispatch}
-            >
+          >
             <Route exact path="/dashboard">
               <Dashboard
                 setShowSettingModel={setShowSettingModel}
                 showSettingModel={showSettingModel}
                 setShowProfileSideModel={setShowProfileSideModel}
                 showProfileSideModel={showProfileSideModel} />
-                
+
             </Route>
             <Route exact path="/products/febric">
               <Suspense fallback={<div>Please wait....</div>}>
                 <LazyFebric />
               </Suspense>
-              
+
             </Route>
             <Route exact path="/products/thread">
               <Thread />
@@ -75,11 +101,11 @@ export default function App({ }: Props) {
               </Suspense>
             </Route>
 
-          <Route exact path="/orders">
-            <Suspense fallback={"Please wait...."}>
-              <ListOrderLazyLoad />
-            </Suspense>
-          </Route>
+            <Route exact path="/orders">
+              <Suspense fallback={"Please wait...."}>
+                <ListOrderLazyLoad />
+              </Suspense>
+            </Route>
 
           </Container>
         </Switch>

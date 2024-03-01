@@ -284,8 +284,6 @@ export default function Seetings({ showModel, setShowModel }: OrderSideModel) {
     fetchPaypalConfigurationDetails();
   }, [])
 
-  console.log(paypal)
-
   const handleCloseAlert = () => {
     dispatch({type: UPDATE_SUCCESSED, payload: {key: ESettings.paypal, value: false}});
   }

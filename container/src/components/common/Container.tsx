@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ArrowRight from "../../assets/svg/arrow-right.svg";
 import { menuIds } from "../../config/navMenu";
 import SideMenu from "./SideMenu";
-import { useHistory } from "react-router-dom";
 // import './loader.scss';
 
-import useSetAuthenticatedUser from "../../../hooks/useSetAuthenticatedUser";
 import { useSelector } from "react-redux";
+import useSetAuthenticatedUser from "../../../hooks/useSetAuthenticatedUser";
 import { RootState } from "../../store";
-import OrderReceiveNotification from "./EventSource/Order";
 
 interface ContainerInterface {
     setSelectedMenu: Function,
@@ -21,27 +19,29 @@ interface ContainerInterface {
 }
 
 export default function Container({ setShowSettingModel, showSettingModel, children, setSelectedMenu, selectedMenu, setShowProfileSideModel, actions, globalDispatch }: ContainerInterface) {
+
     const [loading, setLoading] = useState(false);
     const { auth: { auth } } = useSelector((state: RootState) => state);
 
-    const history = useHistory();
 
-    useSetAuthenticatedUser({setLoading});
 
-    if(loading) {
+    useSetAuthenticatedUser({ setLoading });
+
+    if (loading) {
         return <div className="loading">
             <div className="loader">Please wait....</div>
         </div>
-    } 
+    }
 
-    if(!auth && !loading) {
+    if (!auth && !loading) {
         return <div>Un Authorized</div>
     }
 
-    if(auth && !loading) {
+
+    if (auth && !loading) {
         return (
             <>
-            {/* <OrderReceiveNotification/> */}
+
 
                 <input type="radio" id="toggle-menu-checkbox" className="toggle-menu-checbox" name="toggle-menu-checkbox" />
                 <label htmlFor="toggle-menu-checkbox" >
@@ -62,17 +62,15 @@ export default function Container({ setShowSettingModel, showSettingModel, child
                         />
                     </div>
                     <div className="right services">
-    
+
                         {children}
                     </div>
                 </div>
-    
+
             </>
-    
-    
         )
     }
 
     return null;
-    
+
 }

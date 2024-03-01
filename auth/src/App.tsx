@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Router, Switch } from "react-router-dom";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
@@ -17,7 +17,7 @@ interface AppInterface {
 
 export default function App({ history, actions, globalDispatch }: AppInterface) {
 
-
+  
   useUserIsAuthenticated({history});
 
   return (
@@ -35,3 +35,7 @@ export default function App({ history, actions, globalDispatch }: AppInterface) 
     </div>
   );
 }
+function useOderReceiveNotification() {
+  throw new Error("Function not implemented.");
+}
+
