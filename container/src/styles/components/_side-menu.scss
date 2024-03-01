@@ -123,6 +123,7 @@
 
             .icon {
               display: flex;
+              
             }
             a {
               display: flex;
@@ -153,6 +154,34 @@
       label {
         .icon {
           display: flex;
+          align-items: center;
+          .notification-icon {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            .dott {
+              position: absolute;
+              width: 12px;
+              height:12px;
+              border-radius: 100%;
+              background-color: red;
+              display: flex;
+              align-items: center;
+              color: $light;
+              right: 0;
+              top: -1px;
+              padding: 2px;
+              font-size: 10px;
+              justify-content: center;
+              font-weight: 600;
+
+
+            }
+          }
+        
+
+
         }
       }
       
@@ -210,7 +239,7 @@
         }
         .item {
           display: flex;
-          column-gap: pxToRem(18.21);
+          column-gap: pxToRem(8);
           position: relative;
           align-items: center;
           

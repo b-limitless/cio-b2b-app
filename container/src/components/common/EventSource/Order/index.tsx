@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react'
+/**
+ * From the server there will be different kind of event will be pushed 
+ * data: {
+ * type: eventTypeEnum,
+ * data:any
+ * }
+*/
+import { useEffect } from 'react';
+import { SSEEventAPIs } from '../../../../config/eventAPIs';
 
 export default function useOrderReceiveNotification() {
   useEffect(() => {
     let sse:EventSource;
     const connectToSSE = () => {
-      sse = new EventSource('http://localhost:8000/api/cart/sse', { withCredentials: true });
+      sse = new EventSource(SSEEventAPIs.orderReceived, { withCredentials: true });
 
       function getRealtimeData(data: any) {
         console.log('Data', data);
-        // Handle the received data
       }
 
       sse.onopen = () => {
-        console.log(">>> Connection opened!");
+        console.log("Connected to the server sent event!");
       };
 
       sse.onmessage = (e) => {
+        console.log('e.type', e)
         getRealtimeData(JSON.parse(e.data));
       };
 
@@ -23,8 +31,8 @@ export default function useOrderReceiveNotification() {
         console.log('Could not connect to SSE', error);
         sse.close();
 
-        // Retry connection after a delay (e.g., 5 seconds)
-        setTimeout(connectToSSE, 5000);
+        // Retry connection after a delay (e.g., 2 seconds)
+        setTimeout(connectToSSE, 2000);
       };
     };
 
