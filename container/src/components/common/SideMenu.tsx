@@ -124,11 +124,13 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
             </div>
 
             <div className='row item'>
-              {/* <input type='radio'
-                name='bottom-checkbox'
-                id='settings'
-                className='bottom-checkbox' /> */}
-              <label htmlFor='notification'>
+              <input type='checkbox'
+                name='notification-checkbox'
+                id='notification-checkbox'
+                className='notification-checkbox'
+                hidden={true}
+                />
+              <label htmlFor='notification-checkbox' className='notification-checkbox-label'>
                 <div className='icon'>
                   <span className='notification-icon'>
                     <span className='dott'>1</span>
@@ -137,8 +139,9 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
                   
                   { }
                 </div>
+                <div className='text settings title'>Notification</div>
               </label>
-              <div className='text settings title'>Notification</div>
+              
               <div className='notification-container'>
                 <div className='items'>
                   <div className='item'>
@@ -192,6 +195,8 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
                   </div>
                 </div>
               </div>
+              
+
             </div>
 
             {/* <div className='row item'>

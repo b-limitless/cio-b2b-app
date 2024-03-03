@@ -8,20 +8,26 @@
   }
 }
 
+.notification-checkbox:checked ~ .notification-container{
+    display: flex;
+}
+
+
+
 .notification-container {
+  display: none;
   position: absolute;
   left: 234px;
   top: -308px;
   background-color: $light;
-  display: flex;
+//   display: flex;
   width: 380px;
 
 
   @media only screen and (max-width: 75em) and (min-width: 51.25em) {
     left: 63px
   }
-
-
+ 
   .items {
     display: flex;
     flex-direction: column;
@@ -65,4 +71,9 @@
       }
     }
   }
+}
+
+.notification-checkbox-label{
+    display: flex;
+    column-gap: 0.5rem;
 }
