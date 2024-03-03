@@ -9,6 +9,8 @@ import rightArrowRound from '../../assets/svg/right-arrow-round.svg';
 import Setting from '../../assets/svg/settings.svg';
 import Notification from '../../assets/svg/notification.svg';
 import SwitchPro from '../../assets/svg/switch-pro.svg';
+import BlueDott from '../../assets/svg/blue-dott.svg';
+import CashSVG from '../../assets/svg/cash.svg';
 import { sideNavConfig } from '../../config/navMenu';
 import NavList from './NavList';
 import { APIS } from '../../apis';
@@ -137,6 +139,59 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
                 </div>
               </label>
               <div className='text settings title'>Notification</div>
+              <div className='notification-container'>
+                <div className='items'>
+                  <div className='item'>
+                    <div className='col icon'><CashSVG/></div>
+                    <div className='col description'>
+                      <div className='row note'>
+                      User is trying to Withdrawal more than 20% of the account.
+                      </div>
+                      <div className='row date'>July 16, 2020</div>
+
+                    </div>
+                    <div className='col dott_n'><BlueDott/></div>
+                  </div>
+                  <div className='item'>
+                    <div className='col icon'><CashSVG/></div>
+                    <div className='col description'>
+                      <div className='row note'>
+                      User is trying to Withdrawal more than 20% of the account.
+                      </div>
+                      <div className='row date'>July 16, 2020</div>
+
+                    </div>
+                    <div className='col dott_n'><BlueDott/></div>
+                  </div>
+                  <div className='item'>
+                    <div className='col icon'><CashSVG/></div>
+                    <div className='col description'>
+                      <div className='row note'>
+                      User is trying to Withdrawal more than 20% of the account.
+                      </div>
+                      <div className='row date'>July 16, 2020</div>
+
+                    </div>
+                    <div className='col dott_n'><BlueDott/></div>
+                  </div>
+                  <div className='item'>
+                    <div className='col icon'><CashSVG/></div>
+                    <div className='col description'>
+                      <div className='row note'>
+                      User is trying to Withdrawal more than 20% of the account.
+                      </div>
+                      <div className='row date'>July 16, 2020</div>
+
+                    </div>
+                    <div className='col dott_n'><BlueDott/></div>
+                  </div>
+                  
+                  
+                  <div className='item'>
+                    <span className='more'>Show more</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* <div className='row item'>
