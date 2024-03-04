@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import avatar from '../../assets/img/avatar.png';
 import ArrowLeft from '../../assets/svg/arrow-left.svg';
 import FaqIcon from '../../assets/svg/faq.svg';
@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { request } from '../../utils/request';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { INotification } from '../../../reducers/notficiationSlice';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -38,6 +39,7 @@ type sidebarNavClicktype = `${sidebarNavClick}`
 export default function SideMenu({setShowSettingModel, showSettingModel, setSelectedMenu, setShowProfileSideModel, globalDispatch, actions }: SideMenuInterface) {
   
   const {auth} = useSelector((state:RootState) => state.auth);
+  const {notifications} = useSelector((state:RootState) => state);
 
   const history = useHistory();
   const sideModelToggleHandler = (type:sidebarNavClicktype) => {
@@ -68,6 +70,14 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
       console.error('Could not signout', err);
      }
   }
+
+  // Computing notification
+  const notificationLength = useMemo(() => {
+      const unSeenNotificationLength = notifications.filter((notification:INotification) => notification.seen === false);
+      return unSeenNotificationLength.length;
+  }, [notifications]);
+
+  console.log('notificationLength', notificationLength)
   
   return (
     <div className='left-menu'>
@@ -133,7 +143,8 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
               <label htmlFor='notification-checkbox' className='notification-checkbox-label'>
                 <div className='icon'>
                   <span className='notification-icon'>
-                    <span className='dott'>1</span>
+                    {notificationLength !== 0 && <span className='dott'>{notificationLength}</span>}
+                    
                     <Notification />
                   </span>
                   

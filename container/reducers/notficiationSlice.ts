@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { EEvents } from "../src/types&Enums/events";
 
-// States
 const notificationModel = {
   timestsamp: new Date(),
   text: "Something have to say", // Server will publish this notification
@@ -10,27 +10,17 @@ const notificationModel = {
   type: "newOrderReceived", // Perhaps you need to classified what kind of notification is that
 };
 
-interface INotification {
+export interface INotification {
   id: string;
   timestsamp: Date;
   text: string;
   media: string;
   seen: boolean;
   action: Function;
-  type: any;
+  type: EEvents;
 }
 
-const initialState: INotification[] = [
-  {
-    id: "dsfdfgdfgdfg",
-    timestsamp: new Date(),
-    text: "Something have to say",
-    media: "string",
-    seen: false,
-    action: () => {},
-    type: "newOrderReceived",
-  },
-];
+const initialState: INotification[] = [];
 
 const notificationSlice = createSlice({
   name: "notification",
@@ -58,5 +48,22 @@ const notificationSlice = createSlice({
 
       return updateState;
     },
+    updateSeenNotification: (state:INotification[], action:PayloadAction<{id: string, seen:boolean}>) => {
+      const {id, seen} = action.payload;
+
+      const updateState = state.map((row) => {
+        if (row.id === id) {
+          row.seen = seen;
+        }
+
+        return row;
+      });
+
+      return updateState;
+
+    }
   },
 });
+
+export const {addNotification, updateNotification} = notificationSlice.actions;
+export default notificationSlice.reducer;

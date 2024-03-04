@@ -3,6 +3,7 @@ import auth from '../../reducers/authSlice';
 import product from '../../reducers/productSlice';
 import users from '../../reducers/userSlice';
 import orders from '../../reducers/orderSlice';
+import notifications from '../../reducers/notficiationSlice';
 
 export const Store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const Store = configureStore({
         product, 
         users,
         orders,
+        notifications
     }
 });
 

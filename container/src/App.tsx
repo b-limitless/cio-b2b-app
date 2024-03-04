@@ -24,28 +24,6 @@ export default function App({ }: Props) {
   const [showProfileSideModel, setShowProfileSideModel] = useState<boolean>(false);
   const [showSettingModel, setShowSettingModel] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const [data, setData] = useState();
-  // const eventSource = new EventSource('http://localhost:8000/api/cart/sse');
-  // useEffect(() => {
-
-  //   const sse = new EventSource('http://localhost:8000/api/cart/sse',
-  //     { withCredentials: true });
-  //   function getRealtimeData(data: any) {
-  //     // process the data here,
-  //     // then pass it to state to be rendered
-  //     setData(data);
-  //   }
-  //   sse.onopen = () => console.log(">>> Connection opened!");
-  //   sse.onmessage = e => getRealtimeData(JSON.parse(e.data));
-  //   sse.onerror = () => {
-  //     // error log here 
-
-  //     sse.close();
-  //   }
-  //   return () => {
-  //     sse.close();
-  //   };
-  // }, []);
 
   useOderReceiveNotification();
 

@@ -7,15 +7,29 @@
 */
 import { useEffect } from 'react';
 import { SSEEventAPIs } from '../../../../config/eventAPIs';
+import { INotification, addNotification } from '../../../../../reducers/notficiationSlice';
+import { EEvents } from '../../../../types&Enums/events';
+import { useDispatch } from 'react-redux';
 
 export default function useOrderReceiveNotification() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     let sse:EventSource;
     const connectToSSE = () => {
       sse = new EventSource(SSEEventAPIs.orderReceived, { withCredentials: true });
 
-      function getRealtimeData(data: any) {
-        console.log('Data', data);
+      function getRealtimeData(data: INotification) {
+        dispatch(addNotification(data));
+        if(data.type === EEvents.newOrderReceived) {
+          // Lets dispatch the message
+          
+          console.log('Data for the order', data);
+        }
+        if(data.type === EEvents.newCallReceived) {
+          console.log('Data for call', data);
+        }
+        
       }
 
       sse.onopen = () => {
@@ -23,7 +37,6 @@ export default function useOrderReceiveNotification() {
       };
 
       sse.onmessage = (e) => {
-        console.log('e.type', e)
         getRealtimeData(JSON.parse(e.data));
       };
 
