@@ -16,69 +16,98 @@ import NavList from './NavList';
 import { APIS } from '../../apis';
 import { useHistory } from 'react-router-dom';
 import { request } from '../../utils/request';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { INotification } from '../../../reducers/notficiationSlice';
+import { INotification, updateNotification, updateSeenNotification } from '../../../reducers/notficiationSlice';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
-  setShowProfileSideModel:Function, 
-  setShowSettingModel:Function, 
-  showSettingModel:boolean;
-  globalDispatch:Function;
-  actions:any;
+  setShowProfileSideModel: Function,
+  setShowSettingModel: Function,
+  showSettingModel: boolean;
+  globalDispatch: Function;
+  actions: any;
 }
 
-enum sidebarNavClick  {
-  profile='profile', 
-  settings= 'settings'
+enum sidebarNavClick {
+  profile = 'profile',
+  settings = 'settings'
 }
 
-type sidebarNavClicktype = `${sidebarNavClick}`
+type sidebarNavClicktype = `${sidebarNavClick}`;
 
-export default function SideMenu({setShowSettingModel, showSettingModel, setSelectedMenu, setShowProfileSideModel, globalDispatch, actions }: SideMenuInterface) {
-  
-  const {auth} = useSelector((state:RootState) => state.auth);
-  const {notifications} = useSelector((state:RootState) => state);
+interface INotificationRow {
+  notification: INotification; 
+  seenHandler: Function;
+}
+
+const NotificationRow = ({notification, seenHandler}: INotificationRow) => {
+  return <div className='item' onClick={() => seenHandler(notification.id)}>
+    <div className='col icon'><CashSVG /></div>
+    <div className='col description'>
+      <div className='row note'>
+        {/* User is trying to Withdrawal more than 20% of the account. */}
+        {notification.text}
+      </div>
+      <div className='row date'>July 16, 2020</div>
+
+    </div>
+    <div className='col dott_n'>
+      {!notification.seen && <BlueDott />}
+      </div>
+  </div>
+}
+
+export default function SideMenu({ setShowSettingModel, showSettingModel, setSelectedMenu, setShowProfileSideModel, globalDispatch, actions }: SideMenuInterface) {
+
+  const { auth } = useSelector((state: RootState) => state.auth);
+  const { notifications } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch(); 
 
   const history = useHistory();
-  const sideModelToggleHandler = (type:sidebarNavClicktype) => {
-    if(type==sidebarNavClick.profile) {
+  const sideModelToggleHandler = (type: sidebarNavClicktype) => {
+    if (type == sidebarNavClick.profile) {
       setShowSettingModel(false);
-      setShowProfileSideModel((prevState:boolean) => !prevState);
+      setShowProfileSideModel((prevState: boolean) => !prevState);
       return;
     }
 
-    if(type===sidebarNavClick.settings) {
+    if (type === sidebarNavClick.settings) {
       setShowProfileSideModel(false);
-      setShowSettingModel((prevState:boolean) => !prevState);
+      setShowSettingModel((prevState: boolean) => !prevState);
       return;
     }
   }
 
-  const singOutHandler = async() => {
-     try {
+  const singOutHandler = async () => {
+    try {
       await request({
         url: APIS.auth.signout,
-        method: 'post', 
-        
+        method: 'post',
+
       });
       globalDispatch(actions.authenticatedUser(null));
       history.push('/auth/signin');
 
-     } catch(err) {
+    } catch (err) {
       console.error('Could not signout', err);
-     }
+    }
   }
 
   // Computing notification
   const notificationLength = useMemo(() => {
-      const unSeenNotificationLength = notifications.filter((notification:INotification) => notification.seen === false);
-      return unSeenNotificationLength.length;
+    const unSeenNotificationLength = notifications.filter((notification: INotification) => notification.seen === false);
+    return unSeenNotificationLength.length;
   }, [notifications]);
 
+  const seenHandler = (id:string) => {
+    dispatch(updateSeenNotification({id, seen: true}));
+    // send request to update the notification based on id
+
+  }
+
   console.log('notificationLength', notificationLength)
-  
+
   return (
     <div className='left-menu'>
       <div className='menu-wrapper'>
@@ -134,79 +163,81 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
             </div>
 
             <div className='row item'>
-              <input type='checkbox'
+              {notifications.length > 0 && <input type='checkbox'
                 name='notification-checkbox'
                 id='notification-checkbox'
                 className='notification-checkbox'
                 hidden={true}
-                />
+              />}
               <label htmlFor='notification-checkbox' className='notification-checkbox-label'>
                 <div className='icon'>
                   <span className='notification-icon'>
                     {notificationLength !== 0 && <span className='dott'>{notificationLength}</span>}
-                    
+
                     <Notification />
                   </span>
-                  
+
                   { }
                 </div>
                 <div className='text settings title'>Notification</div>
               </label>
-              
-              <div className='notification-container'>
+
+              {notifications.length > 0 && <div className='notification-container'>
                 <div className='items'>
-                  <div className='item'>
-                    <div className='col icon'><CashSVG/></div>
+                  {notifications.slice(0, 4).map((notification, i) => <NotificationRow key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler}/>)}
+                  {/* <div className='item'>
+                    <div className='col icon'><CashSVG /></div>
                     <div className='col description'>
                       <div className='row note'>
-                      User is trying to Withdrawal more than 20% of the account.
+                        User is trying to Withdrawal more than 20% of the account.
                       </div>
                       <div className='row date'>July 16, 2020</div>
 
                     </div>
-                    <div className='col dott_n'><BlueDott/></div>
+                    <div className='col dott_n'><BlueDott /></div>
                   </div>
                   <div className='item'>
-                    <div className='col icon'><CashSVG/></div>
+                    <div className='col icon'><CashSVG /></div>
                     <div className='col description'>
                       <div className='row note'>
-                      User is trying to Withdrawal more than 20% of the account.
+                        User is trying to Withdrawal more than 20% of the account.
                       </div>
                       <div className='row date'>July 16, 2020</div>
 
                     </div>
-                    <div className='col dott_n'><BlueDott/></div>
+                    <div className='col dott_n'><BlueDott /></div>
                   </div>
                   <div className='item'>
-                    <div className='col icon'><CashSVG/></div>
+                    <div className='col icon'><CashSVG /></div>
                     <div className='col description'>
                       <div className='row note'>
-                      User is trying to Withdrawal more than 20% of the account.
+                        User is trying to Withdrawal more than 20% of the account.
                       </div>
                       <div className='row date'>July 16, 2020</div>
 
                     </div>
-                    <div className='col dott_n'><BlueDott/></div>
+                    <div className='col dott_n'><BlueDott /></div>
                   </div>
                   <div className='item'>
-                    <div className='col icon'><CashSVG/></div>
+                    <div className='col icon'><CashSVG /></div>
                     <div className='col description'>
                       <div className='row note'>
-                      User is trying to Withdrawal more than 20% of the account.
+                        User is trying to Withdrawal more than 20% of the account.
                       </div>
                       <div className='row date'>July 16, 2020</div>
 
                     </div>
-                    <div className='col dott_n'><BlueDott/></div>
-                  </div>
-                  
-                  
+                    <div className='col dott_n'><BlueDott /></div>
+                  </div> */}
+
+
                   <div className='item'>
                     <span className='more'>Show more</span>
                   </div>
                 </div>
-              </div>
+              </div>}
               
+
 
             </div>
 
@@ -224,13 +255,13 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
               <div className='text settings'>FAQ</div>
             </div> */}
 
-            
+
           </div>
           <div className='bottom--bottom' onClick={() => sideModelToggleHandler(sidebarNavClick.profile)}>
             <input type='checkbox' id='avatar-profile-info' className='avatar-profile-info' />
             <label htmlFor='avatar-profile-info' >
               <div className='col avatar'>
-                <img src={auth?.originalImageUrl ??  avatar} />
+                <img src={auth?.originalImageUrl ?? avatar} />
               </div>
             </label>
             <div className='profile-logout'>
@@ -239,7 +270,7 @@ export default function SideMenu({setShowSettingModel, showSettingModel, setSele
                 <div className='role'>{`${auth?.role ?? 'Guest'}`}</div>
               </div>
               <div className='col logout' onClick={() => singOutHandler()}>
-                <LogoutIcon/>
+                <LogoutIcon />
               </div>
             </div>
           </div>

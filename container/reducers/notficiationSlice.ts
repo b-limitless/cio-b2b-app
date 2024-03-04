@@ -48,22 +48,28 @@ const notificationSlice = createSlice({
 
       return updateState;
     },
-    updateSeenNotification: (state:INotification[], action:PayloadAction<{id: string, seen:boolean}>) => {
-      const {id, seen} = action.payload;
+    updateSeenNotification: (
+      state: INotification[],
+      action: PayloadAction<{ id: string; seen: boolean }>
+    ) => {
+      const { id, seen } = action.payload;
+      const copyState = JSON.parse(JSON.stringify(state));
 
-      const updateState = state.map((row) => {
-        if (row.id === id) {
-          row.seen = seen;
+      const updateState: INotification[] = copyState.map(
+        (row: INotification) => {
+          if (row.id === id) {
+            row.seen = seen;
+          }
+
+          return row;
         }
-
-        return row;
-      });
+      );
 
       return updateState;
-
-    }
+    },
   },
 });
 
-export const {addNotification, updateNotification} = notificationSlice.actions;
+export const { addNotification, updateNotification, updateSeenNotification } =
+  notificationSlice.actions;
 export default notificationSlice.reducer;
