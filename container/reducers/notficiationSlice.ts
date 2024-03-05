@@ -18,6 +18,7 @@ export interface INotification {
   seen: boolean;
   action: Function;
   type: EEvents;
+  userId:string;
 }
 
 const initialState: INotification[] = [];

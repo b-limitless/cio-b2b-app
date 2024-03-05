@@ -1,18 +1,19 @@
 /**
- * From the server there will be different kind of event will be pushed 
- * data: {
- * type: eventTypeEnum,
- * data:any
- * }
+ * // Check the userid which is stores inside the redux is that
+   // message which is received is for the same user
 */
 import { useEffect } from 'react';
 import { SSEEventAPIs } from '../../../../config/eventAPIs';
 import { INotification, addNotification } from '../../../../../reducers/notficiationSlice';
 import { EEvents } from '../../../../types&Enums/events';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../store';
 
 export default function useOrderReceiveNotification() {
   const dispatch = useDispatch();
+  const {auth} = useSelector((state:RootState) => state.auth);
+
+  
 
   useEffect(() => {
     let sse:EventSource;
@@ -20,7 +21,12 @@ export default function useOrderReceiveNotification() {
       sse = new EventSource(SSEEventAPIs.orderReceived, { withCredentials: true });
 
       function getRealtimeData(data: INotification) {
+        
+        if(auth?.id !== data.userId) return;
+
         dispatch(addNotification(data));
+
+
         if(data.type === EEvents.newOrderReceived) {
           // Lets dispatch the message
           
@@ -58,5 +64,5 @@ export default function useOrderReceiveNotification() {
       // This will also stop reconnection attempts
       sse.close();
     };
-  }, []);
+  }, [auth?.id]);
 }

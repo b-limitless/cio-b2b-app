@@ -37,11 +37,11 @@ enum sidebarNavClick {
 type sidebarNavClicktype = `${sidebarNavClick}`;
 
 interface INotificationRow {
-  notification: INotification; 
+  notification: INotification;
   seenHandler: Function;
 }
 
-const NotificationRow = ({notification, seenHandler}: INotificationRow) => {
+const NotificationRow = ({ notification, seenHandler }: INotificationRow) => {
   return <div className='item' onClick={() => seenHandler(notification.id)}>
     <div className='col icon'><CashSVG /></div>
     <div className='col description'>
@@ -54,7 +54,7 @@ const NotificationRow = ({notification, seenHandler}: INotificationRow) => {
     </div>
     <div className='col dott_n'>
       {!notification.seen && <BlueDott />}
-      </div>
+    </div>
   </div>
 }
 
@@ -62,7 +62,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
 
   const { auth } = useSelector((state: RootState) => state.auth);
   const { notifications } = useSelector((state: RootState) => state);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const history = useHistory();
   const sideModelToggleHandler = (type: sidebarNavClicktype) => {
@@ -100,8 +100,8 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
     return unSeenNotificationLength.length;
   }, [notifications]);
 
-  const seenHandler = (id:string) => {
-    dispatch(updateSeenNotification({id, seen: true}));
+  const seenHandler = (id: string) => {
+    dispatch(updateSeenNotification({ id, seen: true }));
     // send request to update the notification based on id
 
   }
@@ -184,7 +184,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
 
               {notifications.length > 0 && <div className='notification-container'>
                 <div className='items'>
-                  {notifications.slice(0, 4).map((notification, i) => <NotificationRow key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler}/>)}
+                  {notifications.slice(0, 4).map((notification, i) => <NotificationRow key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
                   {/* <div className='item'>
                     <div className='col icon'><CashSVG /></div>
                     <div className='col description'>
@@ -231,12 +231,12 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
                   </div> */}
 
 
-                  <div className='item'>
+                  {notifications.length > 3 && <div className='item'>
                     <span className='more'>Show more</span>
-                  </div>
+                  </div>}
                 </div>
               </div>}
-              
+
 
 
             </div>
