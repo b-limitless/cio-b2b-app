@@ -24,6 +24,11 @@ export default function App({ history, actions, globalDispatch }: AppInterface) 
     <div className="app">
       <BrowserRouter>
         <Routes>
+        {/* <Route
+            path="/dashboard"
+            element={<div>Hello</div>}
+            /> */}
+
           <Route
             path="/auth/signin"
             element={<Signin actions={actions} globalDispatch={globalDispatch} />}
@@ -31,6 +36,7 @@ export default function App({ history, actions, globalDispatch }: AppInterface) 
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
           <Route path="/auth/create-a-new-password" element={<CreateANewPassword />} />
           <Route path="/auth/verify" element={<VerifyRegisteredAccount actions={actions} globalDispatch={globalDispatch} />} />
+        
         </Routes>
 
       </BrowserRouter>

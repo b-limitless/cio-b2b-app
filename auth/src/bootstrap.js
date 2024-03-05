@@ -6,7 +6,7 @@ import App from "./App";
 // Mount function to start up the app
 const mount = (
   el,
-  { onNavigate, defaultHistory, initialPath, actions, globalDispatch, onSignIn, isSignedIn }
+  { onNavigate, defaultHistory, initialPath, actions, globalDispatch }
 ) => {
   const history =
     defaultHistory ||
@@ -23,8 +23,6 @@ const mount = (
   root.render(
     <App
       history={history}
-      onSignIn={onSignIn}
-      isSignedIn={isSignedIn}
       actions={actions}
       globalDispatch={globalDispatch}
     />

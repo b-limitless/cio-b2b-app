@@ -71,6 +71,6 @@ export default function Container({ setShowSettingModel, showSettingModel, child
         )
     }
 
-    return null;
+    return <div>nothing is avaialble</div>;
 
 }

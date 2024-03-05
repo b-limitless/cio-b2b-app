@@ -26,7 +26,7 @@ export default function App({ }: Props) {
   const [showSettingModel, setShowSettingModel] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  useOderReceiveNotification();
+  // useOderReceiveNotification();
 
   return (
     <>

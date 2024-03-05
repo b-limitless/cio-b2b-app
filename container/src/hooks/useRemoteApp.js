@@ -32,7 +32,6 @@ function useRemoteApp(
       actions, 
       store,
       globalDispatch, 
-      
     });
     history.listen(onParentNavigate);
   }, [
