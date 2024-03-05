@@ -1,19 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { createMemoryHistory, createBrowserHistory } from "history";
 import App from "./App";
-
 
 // Mount function to start up the app
 const mount = (
   el,
-  {
-    onNavigate,
-    defaultHistory,
-    initialPath,
-    actions, 
-    globalDispatch
-  }
+  { onNavigate, defaultHistory, initialPath, actions, globalDispatch, onSignIn, isSignedIn }
 ) => {
   const history =
     defaultHistory ||
@@ -24,17 +17,17 @@ const mount = (
   if (onNavigate) {
     history.listen(onNavigate);
   }
-  ReactDOM.render(
-   
-      <App
-        history={history}
-        actions={actions}
-        globalDispatch={globalDispatch}
-        
-      />
-      ,
 
-    el
+  const root = ReactDOM.createRoot(el);
+
+  root.render(
+    <App
+      history={history}
+      onSignIn={onSignIn}
+      isSignedIn={isSignedIn}
+      actions={actions}
+      globalDispatch={globalDispatch}
+    />
   );
 
   return {

@@ -1,7 +1,6 @@
-import { FormHelperText } from "@material-ui/core";
-import { Button, Input, camelCaseToNormal } from "@pasal/cio-component-library";
+;import { Button, Input, camelCaseToNormal } from "@pasal/cio-component-library";
 import React, { useEffect, useReducer } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { onChangeHandler } from "../../common/onChangeHandler";
 import { onSubmitHandler } from "../../common/onSubmitHandler";
 import BackLeftIcon from "../assets/svg/back-left-icon.svg";
@@ -10,6 +9,7 @@ import { APIS } from "../config/apis";
 import { SigninForm } from "../interfaces/user/inde";
 import { signInModel } from "../model/user";
 import { request } from "../utils/request";
+import FormErrorMessage from "../common/FromErrorMessage";
 
 
 
@@ -98,7 +98,7 @@ interface SignInInterface {
 }
 
 export default function Signin({actions, globalDispatch}: SignInInterface) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [{form, formError, formHasError, formSubmitted}, dispatch] = useReducer(signInProcessReducer, signinInitialState);
 
   const onMouseLeaveEventHandler = (name: keyof SigninForm, value: string) => {
@@ -123,12 +123,13 @@ export default function Signin({actions, globalDispatch}: SignInInterface) {
           method: 'post',
           body: form
         });
-  
-        globalDispatch(actions.authenticatedUser(response))
-        history.push('/dashboard');
+        console.log('global dispatch', globalDispatch)
+        globalDispatch(actions.authenticatedUser(response));
+        navigate('/dashboard');
+        
 
       } catch (err: any) {
-        const { response: { data: { errors } } } = err;
+        const { response: { data: { errors } } } = err || {};
         errors.forEach((error: any, i: number) => {
           dispatch({ type: 'FORM_ERROR', payload: { formHasError: true, name: error.field, value: error.message } })
           dispatch({ type: 'FORM_SUBMITTED', payload: false });
@@ -142,13 +143,7 @@ export default function Signin({actions, globalDispatch}: SignInInterface) {
     if(formSubmitted && !formHasError) {
       submitFormToServer();
     }
-   }, [formHasError, formSubmitted]);
-
-
-   
-
-  //  If user is already logged in then redirect them to dashboard
-  
+   }, [formHasError, formSubmitted]);  
 
   return (
     <Template>
@@ -176,9 +171,10 @@ export default function Signin({actions, globalDispatch}: SignInInterface) {
               Sigin
             </div>
             <div className="purpose">For the purpose of industry regulation, your details are required.</div>
-            <FormHelperText style={{color: '#d32f2f', minHeight: '19px'}}>
-              {formError.message}
-            </FormHelperText>
+            <FormErrorMessage message={formError.message ?? ''}>
+
+            </FormErrorMessage>
+            
             <div className="form">
 
               <Input
@@ -204,6 +200,9 @@ export default function Signin({actions, globalDispatch}: SignInInterface) {
                 onBlur={() => onMouseLeaveEventHandler('password', form.password)}
               />
               <Button variant="primary" text="Signin" onClick={() => onSubmitHandlerLocal()}></Button>
+              <div>
+                <Link to={'/auth/signup'}>Signup</Link>
+              </div>
             </div>
           </div>
         </div>

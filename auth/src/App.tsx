@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Router, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 import ForgotPassword from "./components/ForgotPassword";
@@ -17,25 +17,24 @@ interface AppInterface {
 
 export default function App({ history, actions, globalDispatch }: AppInterface) {
 
-  
-  useUserIsAuthenticated({history});
+
+  useUserIsAuthenticated({ history });
 
   return (
     <div className="app">
-      <Router history={history}>
-        <Switch>
-          <Route path="/auth/signin" render={(props) => <Signin {...props} actions={actions} globalDispatch={globalDispatch} />} />
-          <Route path="/auth/signup" component={Signup} />
-          <Route path="/auth/forgot-password" component={ForgotPassword} />
-          <Route path="/auth/create-a-new-password" component={CreateANewPassword} />
-          <Route path="/auth/verify" render={(props) => <VerifyRegisteredAccount {...props} actions={actions} globalDispatch={globalDispatch} />} />
-        </Switch>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/auth/signin"
+            element={<Signin actions={actions} globalDispatch={globalDispatch} />}
+          />          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+          <Route path="/auth/create-a-new-password" element={<CreateANewPassword />} />
+          <Route path="/auth/verify" element={<VerifyRegisteredAccount actions={actions} globalDispatch={globalDispatch} />} />
+        </Routes>
 
-      </Router>
+      </BrowserRouter>
     </div>
   );
-}
-function useOderReceiveNotification() {
-  throw new Error("Function not implemented.");
 }
 

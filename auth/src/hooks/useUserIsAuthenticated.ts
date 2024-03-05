@@ -1,13 +1,12 @@
 import { request } from "@pasal/cio-component-library";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { APIS } from "../config/apis";
-import { useHistory } from "react-router-dom";
 
 interface UserIsAuthenticated {
     history: any;
 }
 export default function useUserIsAuthenticated({history}: UserIsAuthenticated) {
-//   const history = useHistory();
+//   const history = useNavigate();
 
   useEffect(() => {
     const userIsAuthenticated = async () => {
@@ -17,10 +16,11 @@ export default function useUserIsAuthenticated({history}: UserIsAuthenticated) {
           method: "get",
           unauthrizedRedirect: false
         });
-        console.log("user is already logged in")
+      
         history.push("/dashboard");
       } catch (err:any) {
-        throw new Error(err);
+        // throw new Error(err);
+        console.error(`Could not fetch current user ${err}`);
       }
     };
     userIsAuthenticated();

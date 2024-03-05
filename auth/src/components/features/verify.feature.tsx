@@ -6,11 +6,11 @@ import {
   InputAdornments,
 } from "@pasal/cio-component-library"
 import { APIS } from '../../config/apis';
-import { FormHelperText } from '@material-ui/core';
 import { colors } from '@pasal/cio-component-library';
 import { Link } from 'react-router-dom';
 import { request } from '../../utils/request';
 import { useDispatch } from 'react-redux';
+import FormErrorMessage from '../../common/FromErrorMessage';
 
 type Props = {
   actions:any;
@@ -181,10 +181,8 @@ export default function VerifyFeature({actions, globalDispatch}: Props) {
           ))}
 
         </div>}
-
-        {userVerificationError && <FormHelperText style={{ color: colors.red }}>
-          {userVerificationError}
-        </FormHelperText>}
+              
+        {userVerificationError && <FormErrorMessage message={userVerificationError}/>}
 
         <div className="form">
               {getActionButton()}

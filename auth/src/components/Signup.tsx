@@ -14,7 +14,7 @@ import { camelCaseToNormal } from '@pasal/cio-component-library'
 import { userModel } from '../model/user';
 
 import { APIS } from '../config/apis';
-import { useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { onSubmitHandler } from '../../common/onSubmitHandler';
 
 import { request } from '../utils/request';
@@ -102,7 +102,7 @@ function authReducer(state: FormState, action: any): FormState {
 
 
 export default function Signup() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [{ submitting,
     form,
@@ -143,7 +143,8 @@ export default function Signup() {
     
         const { verificationCode, user } = response; 
         dispatch({ type: 'USER_REGISTRATION_SUCCESS' });
-        history.push('/auth/verify');
+        navigate('/auth/verify');
+        // navigate('/dashboard');
 
       } catch (err: any) {
         const { response: { data: { errors } } } = err;
@@ -191,6 +192,10 @@ export default function Signup() {
           onSubmitHandler={onSubmitHandlerLocal}
           submitting={submitting}
         />}
+
+         <div>
+                <Link to={'/auth/signin'}>Signup</Link>
+              </div>
         
       </div>
     </Template>
