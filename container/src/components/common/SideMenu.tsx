@@ -184,52 +184,8 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
 
               {notifications.length > 0 && <div className='notification-container'>
                 <div className='items'>
-                  {notifications.slice(0, 4).map((notification, i) => <NotificationRow key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
-                  {/* <div className='item'>
-                    <div className='col icon'><CashSVG /></div>
-                    <div className='col description'>
-                      <div className='row note'>
-                        User is trying to Withdrawal more than 20% of the account.
-                      </div>
-                      <div className='row date'>July 16, 2020</div>
-
-                    </div>
-                    <div className='col dott_n'><BlueDott /></div>
-                  </div>
-                  <div className='item'>
-                    <div className='col icon'><CashSVG /></div>
-                    <div className='col description'>
-                      <div className='row note'>
-                        User is trying to Withdrawal more than 20% of the account.
-                      </div>
-                      <div className='row date'>July 16, 2020</div>
-
-                    </div>
-                    <div className='col dott_n'><BlueDott /></div>
-                  </div>
-                  <div className='item'>
-                    <div className='col icon'><CashSVG /></div>
-                    <div className='col description'>
-                      <div className='row note'>
-                        User is trying to Withdrawal more than 20% of the account.
-                      </div>
-                      <div className='row date'>July 16, 2020</div>
-
-                    </div>
-                    <div className='col dott_n'><BlueDott /></div>
-                  </div>
-                  <div className='item'>
-                    <div className='col icon'><CashSVG /></div>
-                    <div className='col description'>
-                      <div className='row note'>
-                        User is trying to Withdrawal more than 20% of the account.
-                      </div>
-                      <div className='row date'>July 16, 2020</div>
-
-                    </div>
-                    <div className='col dott_n'><BlueDott /></div>
-                  </div> */}
-
+                  {notifications.slice(0, 3).map((notification, i) => <NotificationRow key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
+                
 
                   {notifications.length > 3 && <div className='item'>
                     <span className='more'>Show more</span>
