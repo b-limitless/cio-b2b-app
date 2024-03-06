@@ -5,7 +5,12 @@ export const REQUEST_BASE_URI = `${BASE_URI}/${API_PRIFIX}`;
 export const productBaseURI = `${REQUEST_BASE_URI}/products`;
 export const userBaseURI = `${REQUEST_BASE_URI}/users`;
 export const paypal = `${REQUEST_BASE_URI}/paypal`;
+export const notfication = `${REQUEST_BASE_URI}/notification`;
 export const APIS = {
+  auth: {
+    signout: `${userBaseURI}/users/signout`,
+    currentUser: `${userBaseURI}/users/currentuser`,
+  },
   product: {
     upload: `${productBaseURI}/v1/upload`,
     new: `${productBaseURI}/v1`,
@@ -15,9 +20,8 @@ export const APIS = {
     teams: `${userBaseURI}/team/v1`,
     users: `${userBaseURI}/v1`,
   },
-  paypal: {
-    
-  }
+  paypal: {},
+  notification: {},
 };
 
-export const frontStoreLink = 'http://localhost:3000'
+export const frontStoreLink = "http://localhost:3000";

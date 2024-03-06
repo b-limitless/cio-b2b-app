@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { INotification, updateSeenNotification } from '../../../reducers/notficiationSlice';
-import { APIS } from '../../apis';
+import { APIS, notfication } from '../../config/apis';
 import avatar from '../../assets/img/avatar.png';
 import ArrowLeft from '../../assets/svg/arrow-left.svg';
 import BlueDott from '../../assets/svg/blue-dott.svg';
@@ -16,6 +16,7 @@ import { sideNavConfig } from '../../config/navMenu';
 import { RootState } from '../../store';
 import { request } from '../../utils/request';
 import NavList from './NavList';
+import { useMutation } from 'react-query';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -38,6 +39,8 @@ interface INotificationRow {
   seenHandler: Function;
 }
 
+const updateNotificationQueryKey = 'updateNotificationQueryKey';
+
 const NotificationRow = ({ notification, seenHandler }: INotificationRow) => {
   return <div className='item' onClick={() => seenHandler(notification.id)}>
     <div className='col icon'><CashSVG /></div>
@@ -54,12 +57,26 @@ const NotificationRow = ({ notification, seenHandler }: INotificationRow) => {
     </div>
   </div>
 }
+const updateNotification = async(id:string) => {
+  try {
+     const update = await request({
+      url: notfication, 
+      method: 'patch', 
+      body: {id, seen:true}
+     });
+     return update;
+  } catch(err) {
+    console.error(`Could not update the notification`)
+  }
+}
 
 export default function SideMenu({ setShowSettingModel, showSettingModel, setSelectedMenu, setShowProfileSideModel, globalDispatch, actions }: SideMenuInterface) {
 
   const { auth } = useSelector((state: RootState) => state.auth);
   const { notifications } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
+
+  const {mutate, error, isLoading} = useMutation(updateNotification)
 
   const history = useHistory();
   const sideModelToggleHandler = (type: sidebarNavClicktype) => {
@@ -97,13 +114,16 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
     return unSeenNotificationLength.length;
   }, [notifications]);
 
+  
+
   const seenHandler = (id: string) => {
     dispatch(updateSeenNotification({ id, seen: true }));
     // send request to update the notification based on id
-
+    mutate(id);
   }
 
-  console.log('notificationLength', notificationLength)
+  console.log('error, isLoading', error, isLoading);
+
 
   return (
     <div className='left-menu'>

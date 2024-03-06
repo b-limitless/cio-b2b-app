@@ -4,5 +4,5 @@ export const BASE_URI = "http://localhost:8000/api";
 // Imagine you have event like this, newOrderReceivedEvent, paymentReceivedEvent, callReceivedEvent
 
 export const SSEEventAPIs = {
-  orderReceived: `${BASE_URI}/notification/order-created`,
+  listen: `${BASE_URI}/notification/listen`,
 };

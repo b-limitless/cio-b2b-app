@@ -17,7 +17,7 @@ export default function useOrderReceiveNotification() {
   useEffect(() => {
     let sse:EventSource;
     const connectToSSE = () => {
-      sse = new EventSource(SSEEventAPIs.orderReceived, { withCredentials: true });
+      sse = new EventSource(SSEEventAPIs.listen, { withCredentials: true });
 
       function getRealtimeData(data: INotification) {
         dispatch(addNotification(data));
