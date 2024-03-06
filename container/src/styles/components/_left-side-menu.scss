@@ -15,13 +15,14 @@
 
 
 .notification-container {
-  display: none;
+  // display: none;
   position: absolute;
-  left: 234px;
+  left: pxToRem(234);
   top: -308px;
   background-color: $light;
 //   display: flex;
-  width: 380px;
+  width: pxToRem(380);
+  height: pxToRem(348);
 
 
   @media only screen and (max-width: 75em) and (min-width: 51.25em) {
@@ -32,6 +33,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    justify-content: space-between;
 
     .item {
       display: flex;

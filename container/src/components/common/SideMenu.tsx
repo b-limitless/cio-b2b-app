@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { INotification, updateSeenNotification } from '../../../reducers/notficiationSlice';
+import { INotification, addNotification, addNotifications, updateSeenNotification } from '../../../reducers/notficiationSlice';
 import { APIS, notfication } from '../../config/apis';
 import avatar from '../../assets/img/avatar.png';
 import ArrowLeft from '../../assets/svg/arrow-left.svg';
@@ -16,7 +16,9 @@ import { sideNavConfig } from '../../config/navMenu';
 import { RootState } from '../../store';
 import { request } from '../../utils/request';
 import NavList from './NavList';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
+import { queryKeys } from '../../config/queryKeys';
+import Skeleton from '@mui/material/Skeleton';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -37,26 +39,37 @@ type sidebarNavClicktype = `${sidebarNavClick}`;
 interface INotificationRow {
   notification: INotification;
   seenHandler: Function;
+  loading:boolean;
 }
 
 const updateNotificationQueryKey = 'updateNotificationQueryKey';
 
-const NotificationRow = ({ notification, seenHandler }: INotificationRow) => {
+const NotificationRow = ({ notification, seenHandler, loading }: INotificationRow) => {
   return <div className='item' onClick={() => seenHandler(notification.id)}>
-    <div className='col icon'><CashSVG /></div>
+    <div className='col icon'>
+     {loading && <Skeleton variant="rectangular" width={30}  height={30}/>}
+      {!loading && <CashSVG />}
+      </div>
     <div className='col description'>
       <div className='row note'>
         {/* User is trying to Withdrawal more than 20% of the account. */}
-        {notification.text}
+        {loading &&  <Skeleton variant="rectangular" width={210}  />}
+        {!loading && notification.text}
       </div>
-      <div className='row date'>July 16, 2020</div>
+      <div className='row date'>
+        {loading && <Skeleton variant="text" width={20}  />}
+        
+        {!loading && 'July 16, 2020'}
+        
+        </div>
 
     </div>
     <div className='col dott_n'>
-      {!notification.seen && <BlueDott />}
+      {!loading &&  !notification?.seen && <BlueDott />}
     </div>
   </div>
 }
+
 const updateNotification = async(id:string) => {
   try {
      const update = await request({
@@ -70,13 +83,23 @@ const updateNotification = async(id:string) => {
   }
 }
 
+const fetchNotification = async() => {
+  try {
+    const notifications = await request({url: notfication, method: 'get'});
+    return notifications;
+  } catch(err) {
+    console.error(err);
+  }
+}
+
 export default function SideMenu({ setShowSettingModel, showSettingModel, setSelectedMenu, setShowProfileSideModel, globalDispatch, actions }: SideMenuInterface) {
 
   const { auth } = useSelector((state: RootState) => state.auth);
   const { notifications } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  const {mutate, error, isLoading} = useMutation(updateNotification)
+  const {mutate, error, isLoading:updatingNotification} = useMutation(updateNotification);
+  const {data:getNotifications, isLoading:fetchingNotifications} = useQuery(queryKeys.fetchNotification, fetchNotification);
 
   const history = useHistory();
   const sideModelToggleHandler = (type: sidebarNavClicktype) => {
@@ -114,15 +137,18 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
     return unSeenNotificationLength.length;
   }, [notifications]);
 
-  
-
   const seenHandler = (id: string) => {
     dispatch(updateSeenNotification({ id, seen: true }));
     // send request to update the notification based on id
     mutate(id);
   }
 
-  console.log('error, isLoading', error, isLoading);
+  useEffect(() => {
+    if(!fetchingNotifications) dispatch(addNotifications(getNotifications));
+  }, [fetchNotification, fetchingNotifications]);
+
+  // console.log('error, isLoading', error, isLoading);
+  // console.log('notifcation' , getNotifications)
 
 
   return (
@@ -200,12 +226,14 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
               </label>
 
               {notifications.length > 0 && <div className='notification-container'>
+               
                 <div className='items'>
-                  {notifications.slice(0, 3).map((notification, i) => <NotificationRow key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
+                  {notifications.slice(0, 3).map((notification, i) => <NotificationRow loading={true} key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
                 
 
                   {notifications.length > 3 && <div className='item'>
-                    <span className='more'>Show more</span>
+                  {<Skeleton variant="rectangular" width={210}  />}
+                  {/* {true && <span className='more'>Show more</span>} */}
                   </div>}
                 </div>
               </div>}

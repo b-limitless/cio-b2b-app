@@ -1,35 +1,33 @@
 /**
- * From the server there will be different kind of event will be pushed 
- * data: {
- * type: eventTypeEnum,
- * data:any
- * }
 */
 import { useEffect } from 'react';
 import { SSEEventAPIs } from '../../../../config/eventAPIs';
 import { INotification, addNotification } from '../../../../../reducers/notficiationSlice';
 import { EEvents } from '../../../../types&Enums/events';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../store';
 
 export default function useOrderReceiveNotification() {
+  const {auth} = useSelector((state:RootState) => state.auth);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let sse:EventSource;
+    let sse: EventSource;
     const connectToSSE = () => {
       sse = new EventSource(SSEEventAPIs.listen, { withCredentials: true });
 
       function getRealtimeData(data: INotification) {
         dispatch(addNotification(data));
-        if(data.type === EEvents.newOrderReceived) {
+        if (data.type === EEvents.newOrderReceived) {
           // Lets dispatch the message
-          
+
           console.log('Data for the order', data);
         }
-        if(data.type === EEvents.newCallReceived) {
+        if (data.type === EEvents.newCallReceived) {
           console.log('Data for call', data);
         }
-        
+
       }
 
       sse.onopen = () => {
@@ -50,6 +48,8 @@ export default function useOrderReceiveNotification() {
     };
 
     // Initial connection
+    if(!auth) return;
+    
     connectToSSE();
 
     // Clean up on component unmount
@@ -58,5 +58,5 @@ export default function useOrderReceiveNotification() {
       // This will also stop reconnection attempts
       sse.close();
     };
-  }, []);
+  }, [auth]);
 }

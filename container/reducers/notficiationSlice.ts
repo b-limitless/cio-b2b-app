@@ -26,6 +26,12 @@ const notificationSlice = createSlice({
   name: "notification",
   initialState,
   reducers: {
+    addNotifications: (
+      state: INotification[],
+      action: PayloadAction<INotification[]>
+    ) => {
+      return [...state, ...action.payload];
+    },
     addNotification: (
       state: INotification[],
       action: PayloadAction<INotification>
@@ -70,6 +76,6 @@ const notificationSlice = createSlice({
   },
 });
 
-export const { addNotification, updateNotification, updateSeenNotification } =
+export const {addNotifications, addNotification, updateNotification, updateSeenNotification } =
   notificationSlice.actions;
 export default notificationSlice.reducer;
