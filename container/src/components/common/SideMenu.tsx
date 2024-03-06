@@ -1,24 +1,21 @@
 import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { INotification, updateSeenNotification } from '../../../reducers/notficiationSlice';
+import { APIS } from '../../apis';
 import avatar from '../../assets/img/avatar.png';
 import ArrowLeft from '../../assets/svg/arrow-left.svg';
-import FaqIcon from '../../assets/svg/faq.svg';
+import BlueDott from '../../assets/svg/blue-dott.svg';
+import CashSVG from '../../assets/svg/cash.svg';
 import LogoIcon from '../../assets/svg/logo-icon.svg';
 import LogoText from '../../assets/svg/logo-text.svg';
 import LogoutIcon from '../../assets/svg/logout.svg';
-import rightArrowRound from '../../assets/svg/right-arrow-round.svg';
-import Setting from '../../assets/svg/settings.svg';
 import Notification from '../../assets/svg/notification.svg';
-import SwitchPro from '../../assets/svg/switch-pro.svg';
-import BlueDott from '../../assets/svg/blue-dott.svg';
-import CashSVG from '../../assets/svg/cash.svg';
+import Setting from '../../assets/svg/settings.svg';
 import { sideNavConfig } from '../../config/navMenu';
-import NavList from './NavList';
-import { APIS } from '../../apis';
-import { useHistory } from 'react-router-dom';
-import { request } from '../../utils/request';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { INotification, updateNotification, updateSeenNotification } from '../../../reducers/notficiationSlice';
+import { request } from '../../utils/request';
+import NavList from './NavList';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
