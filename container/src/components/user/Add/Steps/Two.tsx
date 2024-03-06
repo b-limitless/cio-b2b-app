@@ -1,12 +1,9 @@
-import React from 'react';
-import { CommonFormInterfaceStep } from '../../user.common.interface';
 import { BasicAccordion, BasicSwitch, camelCaseToNormal } from '@pasal/cio-component-library';
-import styles from "../permissions.module.scss";
-import stylesFrom from "../../form-steps.module.scss";
-import { authorizations } from '../../../../mock/authorization';
-import { AuthorizationType } from '../../types';
-import { FormHelperText } from '@material-ui/core';
+import React from 'react';
 import FormErrorMessage from '../../../common/FormErrorMessage';
+import stylesFrom from "../../form-steps.module.scss";
+import { AuthorizationType } from '../../types';
+import styles from "../permissions.module.scss";
 type Props = {
     onChangeHandler: Function;
     authorizations: AuthorizationType

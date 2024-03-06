@@ -17,6 +17,7 @@ export default function FebricImageModel({febric, showFebricImageModel, setShowF
   return (
     <SideModel style={style} showModel={showFebricImageModel} setShowModel={setShowFebricImageModel}>
         {/* Show Details model */}
+        <></>
     </SideModel>
   )
 }

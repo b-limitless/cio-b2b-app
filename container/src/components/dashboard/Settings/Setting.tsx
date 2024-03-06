@@ -1,11 +1,10 @@
-import React, { ChangeEvent, useEffect, useReducer, useState } from 'react';
 import { SideModel, camelCaseToNormal } from '@pasal/cio-component-library';
-import TabSettings from './Tabs/Tabs';
-import { PlaylistPlay } from '@material-ui/icons';
+import React, { ChangeEvent, useEffect, useReducer } from 'react';
+import { paypal as paypalURI } from '../../../config/apis';
 import { paypalModel } from '../../../model/paypal';
 import { request } from '../../../utils/request';
-import { APIS, paypal as paypalURI } from '../../../config/apis';
 import TransitionsSnackbar from '../../common/SnackBar';
+import TabSettings from './Tabs/Tabs';
 
 // import OrderTabs from '../Tab';
 

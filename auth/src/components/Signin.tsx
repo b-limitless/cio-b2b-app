@@ -1,4 +1,3 @@
-import { FormHelperText } from "@material-ui/core";
 import { Button, Input, camelCaseToNormal } from "@pasal/cio-component-library";
 import React, { useEffect, useReducer } from "react";
 import { useHistory } from "react-router-dom";
@@ -10,6 +9,7 @@ import { APIS } from "../config/apis";
 import { SigninForm } from "../interfaces/user/inde";
 import { signInModel } from "../model/user";
 import { request } from "../utils/request";
+import FormErrorMessage from "../common/FormErrorMessage";
 
 
 
@@ -176,9 +176,9 @@ export default function Signin({actions, globalDispatch}: SignInInterface) {
               Sigin
             </div>
             <div className="purpose">For the purpose of industry regulation, your details are required.</div>
-            <FormHelperText style={{color: '#d32f2f', minHeight: '19px'}}>
-              {formError.message}
-            </FormHelperText>
+            
+            <FormErrorMessage message={formError.message ?? ''}/>
+            
             <div className="form">
 
               <Input
