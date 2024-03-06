@@ -33,6 +33,8 @@ function useRemoteApp(
       store,
       globalDispatch, 
     });
+
+    // console.log('onParentNavigate', onParentNavigate);
     history.listen(onParentNavigate);
   }, [
    

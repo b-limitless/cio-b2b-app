@@ -8,6 +8,7 @@ import { frontStoreLink } from "../../../config/apis";
 import './dashboard.scss';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
+import { Link } from "react-router-dom";
 
 
 type Props = {
@@ -81,6 +82,7 @@ export default function Dashboard({setShowSettingModel, showSettingModel, showPr
         <div className="ci--dashboard__graphs">
           Store Link: {`${frontStoreLink}/${auth?.id}`}
         </div>
+        <Link to='/auth/signup'>signup</Link>
 
       </div>
       

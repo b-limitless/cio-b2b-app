@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Router, Routes, MemoryRouter } from "react-router-dom";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 import ForgotPassword from "./components/ForgotPassword";
@@ -22,7 +22,7 @@ export default function App({ history, actions, globalDispatch }: AppInterface) 
 
   return (
     <div className="app">
-      <BrowserRouter>
+      <MemoryRouter initialEntries={['/']}>
         <Routes>
         {/* <Route
             path="/dashboard"
@@ -39,7 +39,7 @@ export default function App({ history, actions, globalDispatch }: AppInterface) 
         
         </Routes>
 
-      </BrowserRouter>
+      </MemoryRouter>
     </div>
   );
 }

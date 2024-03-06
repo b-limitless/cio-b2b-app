@@ -169,6 +169,10 @@ export default function Signup() {
   return (
     <Template>
       <div className='right col'>
+      <div>
+                <Link to={'/auth/signin'}>signin</Link>
+                <Link to={'/dashboard'}>dashboard</Link>
+              </div>
         <div className='group-nav'>
           <div className='row navigate'>
             <span className='ico-back'>
@@ -193,9 +197,7 @@ export default function Signup() {
           submitting={submitting}
         />}
 
-         <div>
-                <Link to={'/auth/signin'}>Signup</Link>
-              </div>
+         
         
       </div>
     </Template>

@@ -15,6 +15,7 @@ const mount = (
     });
 
   if (onNavigate) {
+    console.log('on navigate running this');
     history.listen(onNavigate);
   }
 
