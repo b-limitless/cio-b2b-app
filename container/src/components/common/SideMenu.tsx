@@ -19,6 +19,7 @@ import NavList from './NavList';
 import { useMutation, useQuery } from 'react-query';
 import { queryKeys } from '../../config/queryKeys';
 import Skeleton from '@mui/material/Skeleton';
+import { NotificationsRowSkeleton } from '../skleton/NotificationSkleton';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -39,55 +40,55 @@ type sidebarNavClicktype = `${sidebarNavClick}`;
 interface INotificationRow {
   notification: INotification;
   seenHandler: Function;
-  loading:boolean;
+  loading: boolean;
 }
 
 const updateNotificationQueryKey = 'updateNotificationQueryKey';
 
-const NotificationRow = ({ notification, seenHandler, loading }: INotificationRow) => {
+const NotificationRow = ({ notification, seenHandler }: INotificationRow) => {
   return <div className='item' onClick={() => seenHandler(notification.id)}>
     <div className='col icon'>
-     {loading && <Skeleton variant="rectangular" width={30}  height={30}/>}
-      {!loading && <CashSVG />}
-      </div>
+
+      <CashSVG />
+    </div>
     <div className='col description'>
       <div className='row note'>
         {/* User is trying to Withdrawal more than 20% of the account. */}
-        {loading &&  <Skeleton variant="rectangular" width={210}  />}
-        {!loading && notification.text}
+
+        {notification.text}
       </div>
       <div className='row date'>
-        {loading && <Skeleton variant="text" width={20}  />}
-        
-        {!loading && 'July 16, 2020'}
-        
-        </div>
+
+
+        July 16, 2020
+
+      </div>
 
     </div>
     <div className='col dott_n'>
-      {!loading &&  !notification?.seen && <BlueDott />}
+      {!notification?.seen && <BlueDott />}
     </div>
   </div>
 }
 
-const updateNotification = async(id:string) => {
+const updateNotification = async (id: string) => {
   try {
-     const update = await request({
-      url: notfication, 
-      method: 'patch', 
-      body: {id, seen:true}
-     });
-     return update;
-  } catch(err) {
+    const update = await request({
+      url: notfication,
+      method: 'patch',
+      body: { id, seen: true }
+    });
+    return update;
+  } catch (err) {
     console.error(`Could not update the notification`)
   }
 }
 
-const fetchNotification = async() => {
+const fetchNotification = async () => {
   try {
-    const notifications = await request({url: notfication, method: 'get'});
+    const notifications = await request({ url: notfication, method: 'get' });
     return notifications;
-  } catch(err) {
+  } catch (err) {
     console.error(err);
   }
 }
@@ -98,8 +99,8 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
   const { notifications } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  const {mutate, error, isLoading:updatingNotification} = useMutation(updateNotification);
-  const {data:getNotifications, isLoading:fetchingNotifications} = useQuery(queryKeys.fetchNotification, fetchNotification);
+  const { mutate, error, isLoading: updatingNotification } = useMutation(updateNotification);
+  const { data: getNotifications, isLoading: fetchingNotifications } = useQuery(queryKeys.fetchNotification, fetchNotification);
 
   const history = useHistory();
   const sideModelToggleHandler = (type: sidebarNavClicktype) => {
@@ -144,7 +145,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
   }
 
   useEffect(() => {
-    if(!fetchingNotifications) dispatch(addNotifications(getNotifications));
+    if (!fetchingNotifications) dispatch(addNotifications(getNotifications));
   }, [fetchNotification, fetchingNotifications]);
 
   // console.log('error, isLoading', error, isLoading);
@@ -226,14 +227,15 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
               </label>
 
               {notifications.length > 0 && <div className='notification-container'>
-               
+
                 <div className='items'>
-                  {notifications.slice(0, 3).map((notification, i) => <NotificationRow loading={true} key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
-                
+                  {updatingNotification && <NotificationsRowSkeleton />}
+                  {!updatingNotification && notifications.slice(0, 3).map((notification, i) => <NotificationRow loading={true} key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
+
 
                   {notifications.length > 3 && <div className='item'>
-                  {<Skeleton variant="rectangular" width={210}  />}
-                  {/* {true && <span className='more'>Show more</span>} */}
+                    {updatingNotification && <Skeleton variant="rectangular" width={210} />}
+                    {!updatingNotification && <span className='more'>Show more</span>}
                   </div>}
                 </div>
               </div>}
