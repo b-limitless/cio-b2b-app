@@ -1,29 +1,27 @@
+import Skeleton from '@mui/material/Skeleton';
 import React, { useEffect, useMemo } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { INotification, addNotification, addNotifications, updateSeenNotification } from '../../../reducers/notficiationSlice';
-import { APIS, notfication } from '../../config/apis';
+import { INotification, addNotifications, updateSeenNotification } from '../../../reducers/notficiationSlice';
+import { fetchNotification } from '../../apis-requests/notification';
+import { updateNotification } from '../../apis-requests/notification/update';
 import avatar from '../../assets/img/avatar.png';
 import ArrowLeft from '../../assets/svg/arrow-left.svg';
-import BlueDott from '../../assets/svg/blue-dott.svg';
-import CashSVG from '../../assets/svg/cash.svg';
 import LogoIcon from '../../assets/svg/logo-icon.svg';
 import LogoText from '../../assets/svg/logo-text.svg';
 import LogoutIcon from '../../assets/svg/logout.svg';
 import Notification from '../../assets/svg/notification.svg';
 import Setting from '../../assets/svg/settings.svg';
-import { sideNavConfig } from '../../config/navMenu';
-import { RootState } from '../../store';
-import { request } from '../../utils/request';
-import NavList from './NavList';
-import { useMutation, useQuery } from 'react-query';
+import { APIS } from '../../config/apis';
+import { menuEnum, sideNavConfig } from '../../config/navMenu';
 import { queryKeys } from '../../config/queryKeys';
-import Skeleton from '@mui/material/Skeleton';
-import { NotificationsRowSkeleton } from '../skleton/NotificationSkleton';
+import { RootState } from '../../store';
 import { EEvents } from '../../types&Enums/events';
-import { fetchNotification } from '../../apis-requests/notification';
-import { updateNotification } from '../../apis-requests/notification/update';
+import { request } from '../../utils/request';
 import NotificationRow from '../notification/NotificationRow';
+import { NotificationsRowSkeleton } from '../skleton/NotificationSkleton';
+import NavList from './NavList';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -109,7 +107,12 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
 
     // Check the type and based on that event perform different event
     if(type === EEvents.newOrderReceived) {
-      console.log('redirect the client to order page and refetch the data again');
+      // Updatae the selected menu
+      setSelectedMenu(menuEnum.Orders);
+      // Push to order route
+      history.push('/Orders');
+
+      // Refetch the order 
       
     }
 
@@ -125,6 +128,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
   }, [fetchNotification, fetchingNotifications]);
 
 
+  
 
   return (
     <div className='left-menu'>
@@ -150,22 +154,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
         </div>
         <div className='bottom'>
           <div className='bottom--top'>
-            {/* <div className='row switch--account'>
-              <div className='col icon'>
-                <SwitchPro/>
-              </div>
-              <div className='col details'>
-                <div className='details--item switch'>Switch account
-                  <br />to <span>Pro</span></div>
-                <div className='details--item unlinited'>Unlimited access to <br />biggest 3d models service <br />with highest quality</div>
-                <div className='details--item ico-getpro'>
-                  <div className='get-pro'>Get your Pro</div>
-                  <div className='icon-right'>
-                    <img src={rightArrowRound} />
-                  </div>
-                </div>
-              </div>
-            </div> */}
+          
             <div className='row item' onClick={() => sideModelToggleHandler(sidebarNavClick.settings)}>
               <input type='radio'
                 name='bottom-checkbox'

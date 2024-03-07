@@ -13,19 +13,21 @@ const ListUserLazy = lazy(() => import("./components/user/List"));
 const AddUserLazy = lazy(() => import("./components/user/Add"));
 const ListOrderLazyLoad = lazy(() => import("./components/order/order/List"));
 
-import { menuIds } from "./config/navMenu";
+import { menuEnum, menuIds } from "./config/navMenu";
 import "./styles/main.scss";
 import useOderReceiveNotification from "./components/common/EventSource/Order";
 const LazyFebric = lazy(() => import("./components/product/Febric/Febric"));
 type Props = {}
 const history = createBrowserHistory();
 export default function App({ }: Props) {
-  const [selectedMenu, setSelectedMenu] = useState<menuIds>("Auth_Signin");
+  const [selectedMenu, setSelectedMenu] = useState<menuEnum>(menuEnum.Auth_Signin);
   const [showProfileSideModel, setShowProfileSideModel] = useState<boolean>(false);
   const [showSettingModel, setShowSettingModel] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useOderReceiveNotification();
+
+  console.log('selectedMenu', selectedMenu);
 
   return (
     <>

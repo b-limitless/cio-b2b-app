@@ -11,11 +11,11 @@ interface NavListInterface {
 interface LinkMenuInterface {
     children: ReactNode;
     childrens: any[];
-    title:string;
+    title: string;
 }
-const LinkMenu = ({title, childrens, children}: LinkMenuInterface) => {
+const LinkMenu = ({ title, childrens, children }: LinkMenuInterface) => {
 
-    if(childrens.length > 0) {
+    if (childrens.length > 0) {
         return childrens;
     }
     return <Link to={`/${title}`}>
@@ -50,26 +50,26 @@ export default function NavList({ row, i, setSelectedMenu }: NavListInterface) {
                             {row.icon}
                         </span>
                         <span className="title">{row.title}</span>
-                        
-                            <span className="arrow">
-                                <ArrowDown />
-                            </span>
 
-                        
-                            </>}
+                        <span className="arrow">
+                            <ArrowDown />
+                        </span>
+
+
+                    </>}
 
                 </label>
                 <ul className="sub--ul">
                     {row.children.map((list: any, j: number) => <Fragment key={`${i}-${j}`}>
                         <input type="radio" name="sub-menu-checkbox" id={`ci-title-${i}-${j}`} className="sub-menu-checkbox" />
-                        
+
                         {/* splitTitleToUrl */}
-                        <Link to={ `/${row.title.toLowerCase()}${splitTitleToUrl(list.title)}`}>
-                        <label htmlFor={`ci-title-${i}-${j}`} onClick={() => row.children.length > 0 ? setSelectedMenu(`${row.title}_${list.title}`) : null}>
-                            <li className="sub--li" >{list.title}</li>
-                        </label>
+                        <Link to={`/${row.title.toLowerCase()}${splitTitleToUrl(list.title)}`}>
+                            <label htmlFor={`ci-title-${i}-${j}`} onClick={() => row.children.length > 0 ? setSelectedMenu(`${row.title}_${list.title}`) : null}>
+                                <li className="sub--li" >{list.title}</li>
+                            </label>
                         </Link>
-                        
+
                     </Fragment>)}
                 </ul>
             </li>
