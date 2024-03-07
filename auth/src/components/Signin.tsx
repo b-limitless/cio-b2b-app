@@ -8,7 +8,7 @@ import Template from "../common/Template";
 import { APIS } from "../config/apis";
 import { SigninForm } from "../interfaces/user/inde";
 import { signInModel } from "../model/user";
-import { request } from "../utils/request";
+import { request } from "../utils/request"; 
 import FormErrorMessage from "../common/FormErrorMessage";
 
 
@@ -156,7 +156,7 @@ export default function Signin({actions, globalDispatch}: SignInInterface) {
         <div className="group-nav">
           <div className="row navigate">
 
-            <span className="ico-back">
+            {/* <span className="ico-back">
               <span className="icon">
                 <BackLeftIcon />
               </span>
@@ -165,7 +165,7 @@ export default function Signin({actions, globalDispatch}: SignInInterface) {
             <span className="steps-info">
               <span className="step">STEP 01/03</span>
               <span className="info">Personal Info.</span>
-            </span>
+            </span> */}
           </div>
 
         </div>

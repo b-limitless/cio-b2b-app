@@ -170,7 +170,7 @@ export default function Signup() {
       <div className='right col'>
         <div className='group-nav'>
           <div className='row navigate'>
-            <span className='ico-back'>
+            {/* <span className='ico-back'>
               <span className='icon'>
                 <BackLeftIcon />
               </span>
@@ -179,7 +179,7 @@ export default function Signup() {
             <span className='steps-info'>
               <span className='step'>STEP 01/03</span>
               <span className='info'>Personal Info.</span>
-            </span>
+            </span> */}
           </div>
         </div>
         

@@ -8,8 +8,8 @@ export const paypal = `${REQUEST_BASE_URI}/paypal`;
 export const notfication = `${REQUEST_BASE_URI}/notification`;
 export const APIS = {
   auth: {
-    signout: `${userBaseURI}/users/signout`,
-    currentUser: `${userBaseURI}/users/currentuser`,
+    signout: `${REQUEST_BASE_URI }/users/signout`,
+    currentUser: `${REQUEST_BASE_URI }/users/currentuser`,
   },
   product: {
     upload: `${productBaseURI}/v1/upload`,

@@ -395,9 +395,9 @@ export default function Profile({ showModel, setShowModel }: Props) {
               onChange={(e: any) => setActiveTab(e.target.checked ? tabsEnum.peronalInfo : tabsEnum.security)}
               className={styles.tab__option__input} />
 
-            <label htmlFor='personal-info' className={styles.tab__label}>
+            {/* <label htmlFor='personal-info' className={styles.tab__label}>
               <span className={styles.item}>PERSONAL INFO</span>
-            </label>
+            </label> */}
 
 
             <input checked={activeTab === tabsEnum.security ? true : false}

@@ -65,7 +65,8 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
   const { data: getNotifications, isLoading: fetchingNotifications } = useQuery(queryKeys.fetchNotification, fetchNotification);
 
   const history = useHistory();
-  const sideModelToggleHandler = (type: sidebarNavClicktype) => {
+  const sideModelToggleHandler = (e:React.MouseEvent<HTMLButtonElement>, type: sidebarNavClicktype) => {
+    e.stopPropagation();
     if (type == sidebarNavClick.profile) {
       setShowSettingModel(false);
       setShowProfileSideModel((prevState: boolean) => !prevState);
@@ -80,6 +81,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
   }
 
   const singOutHandler = async () => {
+    console.log('signin out user')
     try {
       await request({
         url: APIS.auth.signout,
@@ -155,7 +157,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
         <div className='bottom'>
           <div className='bottom--top'>
           
-            <div className='row item' onClick={() => sideModelToggleHandler(sidebarNavClick.settings)}>
+            <div className='row item' onClick={(e:any) => sideModelToggleHandler(e, sidebarNavClick.settings)}>
               <input type='radio'
                 name='bottom-checkbox'
                 id='settings'
@@ -223,7 +225,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
 
 
           </div>
-          <div className='bottom--bottom' onClick={() => sideModelToggleHandler(sidebarNavClick.profile)}>
+          <div className='bottom--bottom' onClick={(e:any) => sideModelToggleHandler(e, sidebarNavClick.profile)}>
             <input type='checkbox' id='avatar-profile-info' className='avatar-profile-info' />
             <label htmlFor='avatar-profile-info' >
               <div className='col avatar'>

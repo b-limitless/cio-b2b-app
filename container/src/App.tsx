@@ -27,8 +27,6 @@ export default function App({ }: Props) {
 
   useOderReceiveNotification();
 
-  console.log('selectedMenu', selectedMenu);
-
   return (
     <>
       <Router history={history}>
