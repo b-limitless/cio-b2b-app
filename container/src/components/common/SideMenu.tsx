@@ -20,6 +20,10 @@ import { useMutation, useQuery } from 'react-query';
 import { queryKeys } from '../../config/queryKeys';
 import Skeleton from '@mui/material/Skeleton';
 import { NotificationsRowSkeleton } from '../skleton/NotificationSkleton';
+import { EEvents } from '../../types&Enums/events';
+import { fetchNotification } from '../../apis-requests/notification';
+import { updateNotification } from '../../apis-requests/notification/update';
+import NotificationRow from '../notification/NotificationRow';
 
 interface SideMenuInterface {
   setSelectedMenu: Function
@@ -39,59 +43,19 @@ type sidebarNavClicktype = `${sidebarNavClick}`;
 
 interface INotificationRow {
   notification: INotification;
-  seenHandler: Function;
+  seenHandler: (id: string, type:EEvents) => void;
   loading: boolean;
+  type: EEvents;
 }
 
-const updateNotificationQueryKey = 'updateNotificationQueryKey';
+/**
+ * 
+ * When they clicked to each item then its need to check its type 
+ * based on its type it need to perform different action
+ * for an example if type of newOrderCreated event then it need to 
+ * redirect to refetch the order data and redirect them to order routes
+*/
 
-const NotificationRow = ({ notification, seenHandler }: INotificationRow) => {
-  return <div className='item' onClick={() => seenHandler(notification.id)}>
-    <div className='col icon'>
-
-      <CashSVG />
-    </div>
-    <div className='col description'>
-      <div className='row note'>
-        {/* User is trying to Withdrawal more than 20% of the account. */}
-
-        {notification.text}
-      </div>
-      <div className='row date'>
-
-
-        July 16, 2020
-
-      </div>
-
-    </div>
-    <div className='col dott_n'>
-      {!notification?.seen && <BlueDott />}
-    </div>
-  </div>
-}
-
-const updateNotification = async (id: string) => {
-  try {
-    const update = await request({
-      url: notfication,
-      method: 'patch',
-      body: { id, seen: true }
-    });
-    return update;
-  } catch (err) {
-    console.error(`Could not update the notification`)
-  }
-}
-
-const fetchNotification = async () => {
-  try {
-    const notifications = await request({ url: notfication, method: 'get' });
-    return notifications;
-  } catch (err) {
-    console.error(err);
-  }
-}
 
 export default function SideMenu({ setShowSettingModel, showSettingModel, setSelectedMenu, setShowProfileSideModel, globalDispatch, actions }: SideMenuInterface) {
 
@@ -138,18 +102,28 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
     return unSeenNotificationLength.length;
   }, [notifications]);
 
-  const seenHandler = (id: string) => {
+  const seenHandler = (id: string, type:EEvents) => {
     dispatch(updateSeenNotification({ id, seen: true }));
     // send request to update the notification based on id
     mutate(id);
+
+    // Check the type and based on that event perform different event
+    if(type === EEvents.newOrderReceived) {
+      console.log('redirect the client to order page and refetch the data again');
+      
+    }
+
+    if(type === EEvents.newCallReceived) {
+      console.log(`Update the call received event`)
+    }
   }
+
+  
 
   useEffect(() => {
     if (!fetchingNotifications) dispatch(addNotifications(getNotifications));
   }, [fetchNotification, fetchingNotifications]);
 
-  // console.log('error, isLoading', error, isLoading);
-  // console.log('notifcation' , getNotifications)
 
 
   return (
@@ -230,7 +204,7 @@ export default function SideMenu({ setShowSettingModel, showSettingModel, setSel
 
                 <div className='items'>
                   {updatingNotification && <NotificationsRowSkeleton />}
-                  {!updatingNotification && notifications.slice(0, 3).map((notification, i) => <NotificationRow loading={true} key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
+                  {!updatingNotification && notifications.slice(0, 3).map((notification, i) => <NotificationRow type={notification.type} loading={true} key={`notification-row-${i}`} notification={notification} seenHandler={seenHandler} />)}
 
 
                   {notifications.length > 3 && <div className='item'>
